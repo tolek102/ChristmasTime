@@ -1,8 +1,10 @@
-## Zadanie 1 - IntivePatronage2018 - KomisApp
+## IntivePatronage2018 - KomisApp
 
 Program do obsugi bazy danych komisu samochodowego <br />
 Możliwość przegladania, dodawania, usuwania i aktualizacji danych w bazie samochodów (Car) oraz klientów (Customer)<br />
-<app_url> = http://localhost:8080
+<app_url> = http://localhost:8080<br />
+
+Link do dokumentacji Swagger: http://localhost:8080/swagger-ui.html
 
 ## Uruchomienie
 
@@ -15,8 +17,7 @@ Do uruchomienia wymagane są:
 Kroki: <br />
 W InteliJ importujemy projekt <br />
 wykonujemy polecenia: 
-- mvn clean install
-- mvn clean package <br />
+- mvn clean install <br />
 
 Wybieramy Run -> Run KomisAppAplication <br />
 W postmanie generujemy zapytania na podstawie poniższych danych

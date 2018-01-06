@@ -4,6 +4,8 @@ import com.PBachta.KomisApp.Entity.Car;
 import com.PBachta.KomisApp.Entity.Customer;
 import com.PBachta.KomisApp.Repository.CarRepository;
 import com.PBachta.KomisApp.Repository.CustomerRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,6 +24,9 @@ public class KomisAppApplication{
 	public static void main(String[] args) {
 
 		SpringApplication.run(KomisAppApplication.class, args);
+
+		final Logger log = LoggerFactory.getLogger(KomisAppApplication.class);
+		log.info((char)27 +"[42mTo open Swagger documentation please go to: http://localhost:8080/swagger-ui.html"+(char)27+"[0m");
 	}
 
 
