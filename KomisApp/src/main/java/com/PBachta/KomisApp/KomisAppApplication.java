@@ -25,20 +25,20 @@ public class KomisAppApplication{
 	}
 
 
-    //Adding example inputs to database
+	//Adding example inputs to database
 	@Component
 	public class DataInitializer {
 		@PostConstruct
 		public void initDat() {
 			carRepository.save(new Car("Subaru", "Legacy", "ZS85H55", "4S3BP616556397994"));
-            carRepository.save(new Car("Dodge","Caliber","ZGR02GU","1B3HB28B18D508661"));
-            carRepository.save(new Car("Jeep","Patriot","ZSW1523","1J4FT28A99D140347"));
-            carRepository.save(new Car("Ford","Expedition","ZPL18KL","1FMRU15W61LA66899"));
+			carRepository.save(new Car("Dodge","Caliber","ZGR02GU","1B3HB28B18D508661"));
+			carRepository.save(new Car("Jeep","Patriot","ZSW1523","1J4FT28A99D140347"));
+			carRepository.save(new Car("Ford","Expedition","ZPL18KL","1FMRU15W61LA66899"));
 
-            customersRepository.save(new Customer("Jan", "Kowalski", "NHW399139", "43062460106"));
-            customersRepository.save(new Customer("Adam", "Nowak", "KQL847332", "07240779183"));
-            customersRepository.save(new Customer("Zygfryd", "Kopytko", "EIS182302", "79121576859"));
-            customersRepository.save(new Customer("Andrzej", "Zawada", "EXY304697", "65020522882"));
+			customersRepository.save(new Customer("Jan", "Kowalski", "NHW399139", "43062460106"));
+			customersRepository.save(new Customer("Adam", "Nowak", "KQL847332", "07240779183"));
+			customersRepository.save(new Customer("Zygfryd", "Kopytko", "EIS182302", "79121576859"));
+			customersRepository.save(new Customer("Andrzej", "Zawada", "EXY304697", "65020522882"));
 		}
 	}
 }

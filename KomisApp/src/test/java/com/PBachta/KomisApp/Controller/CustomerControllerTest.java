@@ -42,7 +42,7 @@ public class CustomerControllerTest {
                 new Customer(2,"Adam","Nowak","KQL847332","07240779183")
         );
 
-        Mockito.when(customerControllerMock.getAll()).thenReturn(customerList);
+        Mockito.when(customerControllerMock.getAllCustomers()).thenReturn(customerList);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/customer").accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -51,7 +51,7 @@ public class CustomerControllerTest {
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
         String expected = "[{id: 1,firstName: Jan,lastName: Kowalski,idCardNumber: NHW399139,peselNumber: '43062460106'}," +
-                           "{id: 2,firstName: Adam,lastName: Nowak,idCardNumber: KQL847332,peselNumber: '07240779183'}]";
+                "{id: 2,firstName: Adam,lastName: Nowak,idCardNumber: KQL847332,peselNumber: '07240779183'}]";
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
@@ -62,7 +62,7 @@ public class CustomerControllerTest {
 
         Customer customer = (new Customer(1, "Jan", "Kowalski", "NHW399139", "43062460106"));
 
-        Mockito.when(customerControllerMock.getById(1)).thenReturn(customer);
+        Mockito.when(customerControllerMock.getCustomerById(1)).thenReturn(customer);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/customer/1").accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();

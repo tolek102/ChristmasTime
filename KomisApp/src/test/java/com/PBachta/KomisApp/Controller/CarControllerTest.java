@@ -41,7 +41,7 @@ public class CarControllerTest {
                 new Car(2,"Dodge","Caliber","ZGR02GU","1B3HB28B18D508661")
         );
 
-        Mockito.when(carControllerMock.getAll()).thenReturn(carList);
+        Mockito.when(carControllerMock.getAllCars()).thenReturn(carList);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/car").accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -50,7 +50,7 @@ public class CarControllerTest {
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
         String expected = "[{id: 1,maker: Subaru,model: Legacy,registrationNumber: ZS85H55,vinNumber: 4S3BP616556397994}," +
-                           "{id: 2,maker: Dodge,model: Caliber,registrationNumber: ZGR02GU,vinNumber: 1B3HB28B18D508661}]";
+                "{id: 2,maker: Dodge,model: Caliber,registrationNumber: ZGR02GU,vinNumber: 1B3HB28B18D508661}]";
 
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
@@ -62,7 +62,7 @@ public class CarControllerTest {
 
         Car car = (new Car(1, "Subaru", "Legacy", "ZS85H55", "4S3BP616556397994"));
 
-        Mockito.when(carControllerMock.getById(1)).thenReturn(car);
+        Mockito.when(carControllerMock.getCarById(1)).thenReturn(car);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/car/1").accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
