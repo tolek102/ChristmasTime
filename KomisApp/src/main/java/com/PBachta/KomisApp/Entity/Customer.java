@@ -10,7 +10,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String idCardNumber;
@@ -25,7 +25,7 @@ public class Customer {
         this.peselNumber = peselNumber;
     }
 
-    public Customer(long id, String firstName, String lastName, String idCardNumber, String peselNumber) {
+    public Customer(Long id, String firstName, String lastName, String idCardNumber, String peselNumber) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

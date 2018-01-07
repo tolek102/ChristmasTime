@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CustomerService {
+class CustomerService implements CustomerServiceInterface {
     @Autowired
     private CustomerRepository customerRepository;
 
@@ -26,7 +26,7 @@ public class CustomerService {
     }
 
 
-    public Customer getById(long id) {
+    public Customer getById(Long id) {
         Customer customer = customerRepository.findOne(id);
         if (customer == null) {
             throw new RuntimeException("Customer with id "+id+" not found");
@@ -42,13 +42,13 @@ public class CustomerService {
     }
 
 
-    public List<Customer> delete(long id) {
+    public List<Customer> delete(Long id) {
         customerRepository.delete(id);
         return getAll();
     }
 
 
-    public Customer put(long id, String firstName, String lastName, String idCardNumber, String peselNumber) {
+    public Customer put(Long id, String firstName, String lastName, String idCardNumber, String peselNumber) {
         Customer customer = customerRepository.findOne(id);
         if (customer == null) {
             throw new RuntimeException("Customer with id "+id+" not found");

@@ -1,5 +1,6 @@
 package com.PBachta.KomisApp;
 
+import com.PBachta.KomisApp.DataTypes.Maker;
 import com.PBachta.KomisApp.Entity.Car;
 import com.PBachta.KomisApp.Entity.Customer;
 import com.PBachta.KomisApp.Repository.CarRepository;
@@ -11,6 +12,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import static java.time.temporal.ChronoField.DAY_OF_MONTH;
+import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
+import static java.time.temporal.ChronoField.YEAR;
 
 @SpringBootApplication
 public class KomisAppApplication{
@@ -27,6 +35,16 @@ public class KomisAppApplication{
 
 		final Logger log = LoggerFactory.getLogger(KomisAppApplication.class);
 		log.info((char)27 +"[42mTo open Swagger documentation please go to: http://localhost:8080/swagger-ui.html"+(char)27+"[0m");
+
+		log.info(String.valueOf(LocalDate.now()));
+
+        Integer year=1998;
+        Integer month=2;
+        Integer dayOfMonth=20;
+
+        log.info(String.valueOf(LocalDate.of(year,month,dayOfMonth)));
+        log.info(String.valueOf(LocalDate.of(year,month,dayOfMonth).isAfter(LocalDate.now())));
+
 	}
 
 
@@ -35,10 +53,10 @@ public class KomisAppApplication{
 	public class DataInitializer {
 		@PostConstruct
 		public void initDat() {
-			carRepository.save(new Car("Subaru", "Legacy", "ZS85H55", "4S3BP616556397994"));
-			carRepository.save(new Car("Dodge","Caliber","ZGR02GU","1B3HB28B18D508661"));
-			carRepository.save(new Car("Jeep","Patriot","ZSW1523","1J4FT28A99D140347"));
-			carRepository.save(new Car("Ford","Expedition","ZPL18KL","1FMRU15W61LA66899"));
+			carRepository.save(new Car(Maker.HONDA,1,1, "1998-01-05", "1998-02-05", "AB1"));
+			carRepository.save(new Car(Maker.FIAT,2,2,"1999-01-05","2000-03-08","CD2"));
+			carRepository.save(new Car(Maker.SKODA,3,3,"1993-10-20","1994-01-05","EF3"));
+			carRepository.save(new Car(Maker.HONDA,4,4,"1998-11-05","1998-12-01","GH4"));
 
 			customersRepository.save(new Customer("Jan", "Kowalski", "NHW399139", "43062460106"));
 			customersRepository.save(new Customer("Adam", "Nowak", "KQL847332", "07240779183"));
