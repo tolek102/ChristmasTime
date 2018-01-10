@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +22,7 @@ class CarService implements CarServiceInteface {
     public List<Car> getAll() {
         List<Car> carList = new ArrayList<>();
 
-        for(Car car : carRepository.findAll()){
-            carList.add(car);
-        }
+        carList.addAll(carRepository.findAll());
 
         if (carList.size() == 0) {
             throw new RuntimeException("There are no cars in database");
@@ -41,7 +40,8 @@ class CarService implements CarServiceInteface {
     }
 
 
-    public Car post(Maker maker, Integer engineCapacity, Integer numberOfSeats, String firstRegistrationDate, String registrationCardIssueDate, String registrationNumber) {
+    public Car post(Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber) {
+
         Car car = new Car(maker, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber);
         carRepository.save(car);
         return car;
@@ -54,7 +54,7 @@ class CarService implements CarServiceInteface {
     }
 
 
-    public Car put(Long id, Maker maker, Integer engineCapacity, Integer numberOfSeats, String firstRegistrationDate, String registrationCardIssueDate, String registrationNumber) {
+    public Car put(Long id, Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber) {
         Car car = carRepository.findOne(id);
         if (car == null) {
             throw new RuntimeException("Car with id "+id+" not found");
@@ -64,7 +64,7 @@ class CarService implements CarServiceInteface {
             maker = car.getMaker();
         if(engineCapacity == null)
             engineCapacity = car.getEngineCapacity();
-        if(engineCapacity == null)
+        if(numberOfSeats == null)
             numberOfSeats = car.getNumberOfSeats();
         if (firstRegistrationDate == null)
             firstRegistrationDate = car.getFirstRegistrationDate();
@@ -77,6 +77,7 @@ class CarService implements CarServiceInteface {
         carRepository.save(updatedCar);
         return carRepository.findOne(id);
     }
+
 
 //______________________________________________ additional functions___________________________________________________
 

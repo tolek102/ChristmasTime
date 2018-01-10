@@ -4,27 +4,30 @@ import com.PBachta.KomisApp.DataTypes.Maker;
 import com.PBachta.KomisApp.Validation.IsCorrectCar;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.sql.Date;
+
+
 
 @Entity
+@NamedQuery(name="find_all_cars", query="select c from Car c")
 @IsCorrectCar
 public class Car {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
     @Enumerated
     private Maker maker;
     private Integer engineCapacity;
     private Integer numberOfSeats;
-    private String firstRegistrationDate;
-    private String registrationCardIssueDate;
+    private Date firstRegistrationDate;
+    private Date registrationCardIssueDate;
     private String registrationNumber;
 
 
     protected Car(){}
 
-    public Car(Maker maker, Integer engineCapacity, Integer numberOfSeats, String firstRegistrationDate, String registrationCardIssueDate, String registrationNumber ) {
+    public Car(Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber ) {
         this.maker = maker;
         this.engineCapacity = engineCapacity;
         this.numberOfSeats = numberOfSeats;
@@ -33,7 +36,7 @@ public class Car {
         this.registrationNumber = registrationNumber;
     }
 
-    public Car(Long id, Maker maker, Integer engineCapacity, Integer numberOfSeats, String firstRegistrationDate, String registrationCardIssueDate, String registrationNumber){
+    public Car(Long id, Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber){
         this.id = id;
         this.maker = maker;
         this.engineCapacity = engineCapacity;
@@ -67,19 +70,19 @@ public class Car {
         this.numberOfSeats = numberOfSeats;
     }
 
-    public String getFirstRegistrationDate() {
+    public Date getFirstRegistrationDate() {
         return firstRegistrationDate;
     }
 
-    public void setFirstRegistrationDate(String firstRegistrationDate) {
+    public void setFirstRegistrationDate(Date firstRegistrationDate) {
         this.firstRegistrationDate = firstRegistrationDate;
     }
 
-    public String getRegistrationCardIssueDate() {
+    public Date getRegistrationCardIssueDate() {
         return registrationCardIssueDate;
     }
 
-    public void setRegistrationCardIssueDate(String registrationCardIssueDate) {
+    public void setRegistrationCardIssueDate(Date registrationCardIssueDate) {
         this.registrationCardIssueDate = registrationCardIssueDate;
     }
 

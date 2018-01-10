@@ -3,36 +3,71 @@ package com.PBachta.KomisApp.Service;
 import com.PBachta.KomisApp.DataTypes.Maker;
 import com.PBachta.KomisApp.Entity.Car;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
-@Component
+//@Component
+@Repository
+@Transactional
 @ConditionalOnProperty(prefix = "", name = "H2_STORAGE_ENABLED", havingValue="true")
 class CarServiceH2 implements CarServiceInteface {
 
+    @PersistenceContext
+    EntityManager entityManager;
+
     @Override
     public List<Car> getAll() {
-        return null;
-    }
+
+        TypedQuery<Car> namedQuery = entityManager.createNamedQuery("find_all_cars", Car.class);
+        return namedQuery.getResultList();
+}
 
     @Override
    public Car getById(Long id) {
-        return null;
+
+        return entityManager.find(Car.class, id);
     }
 
     @Override
-    public Car post(Maker maker, Integer engineCapacity, Integer numberOfSeats, String firstRegistrationDate, String registrationCardIssueDate, String registrationNumber) {
-        return null;
+    public Car post(Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber) {
+
+        Car car = new Car(maker, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber);
+        return entityManager.merge(car);
     }
 
     @Override
     public List<Car> delete(Long id) {
-        return null;
+        Car car = getById(id);
+        entityManager.remove(car);
+        return getAll();
     }
 
     @Override
-    public Car put(Long id, Maker maker, Integer engineCapacity, Integer numberOfSeats, String firstRegistrationDate, String registrationCardIssueDate, String registrationNumber) {
-        return null;
+    public Car put(Long id, Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber) {
+
+        Car entryCar = getById(id);
+
+        if(maker == null)
+            maker = entryCar.getMaker();
+        if(engineCapacity == null)
+            engineCapacity = entryCar.getEngineCapacity();
+        if(numberOfSeats == null)
+            numberOfSeats = entryCar.getNumberOfSeats();
+        if (firstRegistrationDate == null)
+            firstRegistrationDate = entryCar.getFirstRegistrationDate();
+        if (registrationCardIssueDate == null)
+            registrationCardIssueDate = entryCar.getRegistrationCardIssueDate();
+        if (registrationNumber == null)
+            registrationNumber = entryCar.getRegistrationNumber();
+
+        Car car = new Car(id, maker, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber);
+        return entityManager.merge(car);
     }
 }

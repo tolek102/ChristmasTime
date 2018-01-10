@@ -4,9 +4,12 @@ import com.PBachta.KomisApp.DataTypes.Maker;
 import com.PBachta.KomisApp.Entity.Car;
 import com.PBachta.KomisApp.Service.CarServiceInteface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -41,9 +44,11 @@ public class CarController{
     public Car postNewCar(@RequestParam("maker") Maker maker,
                           @RequestParam("engineCapacity") Integer engineCapacity,
                           @RequestParam("numberOfSeats") Integer numberOfSeats,
-                          @RequestParam("firstRegistrationDate") String firstRegistrationDate,
-                          @RequestParam("registrationCardIssueDate") String registrationCardIssueDate,
+                          @RequestParam("firstRegistrationDate") Date firstRegistrationDate,
+                          @RequestParam("registrationCardIssueDate")Date registrationCardIssueDate,
                           @RequestParam("registrationNumber") String registrationNumber) {
+
+
 
         return carService.post(maker, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber);
     }
@@ -65,12 +70,13 @@ public class CarController{
                              @RequestParam(value = "maker", required = false) Maker maker,
                              @RequestParam(value = "engineCapacity", required = false) Integer engineCapacity,
                              @RequestParam(value = "numberOfSeats", required = false) Integer numberOfSeats,
-                             @RequestParam(value = "firstRegistrationDate", required = false) String firstRegistrationDate,
-                             @RequestParam(value = "registrationCardIssueDate", required = false) String registrationCardIssueDate,
+                             @RequestParam(value = "firstRegistrationDate", required = false) Date firstRegistrationDate,
+                             @RequestParam(value = "registrationCardIssueDate", required = false)Date registrationCardIssueDate,
                              @RequestParam(value = "registrationNumber", required = false) String registrationNumber) {
 
         return carService.put(id, maker, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber);
     }
+
 
 //______________________________________________ additional functions___________________________________________________
 

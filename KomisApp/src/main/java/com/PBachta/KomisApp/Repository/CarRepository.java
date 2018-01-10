@@ -8,9 +8,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 @RepositoryRestResource(collectionResourceRel = "car", path = "car")
-public interface CarRepository extends CrudRepository<Car, Long> {
+public interface CarRepository extends JpaRepository<Car, Long> {
 
     List<Car> findByMaker(@Param("maker") Maker maker);
 

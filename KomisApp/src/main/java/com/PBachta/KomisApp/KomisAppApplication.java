@@ -11,14 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
-import javax.annotation.PostConstruct;
-import java.text.DateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-import static java.time.temporal.ChronoField.DAY_OF_MONTH;
-import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
-import static java.time.temporal.ChronoField.YEAR;
+import javax.annotation.PostConstruct;
+import java.time.LocalDate;
+//import java.util.Date;
+import java.sql.Date;
 
 @SpringBootApplication
 public class KomisAppApplication{
@@ -36,14 +33,22 @@ public class KomisAppApplication{
 		final Logger log = LoggerFactory.getLogger(KomisAppApplication.class);
 		log.info((char)27 +"[42mTo open Swagger documentation please go to: http://localhost:8080/swagger-ui.html"+(char)27+"[0m");
 
-		log.info(String.valueOf(LocalDate.now()));
-
-        Integer year=1998;
-        Integer month=2;
-        Integer dayOfMonth=20;
-
-        log.info(String.valueOf(LocalDate.of(year,month,dayOfMonth)));
-        log.info(String.valueOf(LocalDate.of(year,month,dayOfMonth).isAfter(LocalDate.now())));
+//		log.info(String.valueOf(LocalDate.now()));
+//
+//        Integer year=1998;
+//        Integer month=2;
+//        Integer dayOfMonth=20;
+//
+//        log.info(String.valueOf(LocalDate.of(year,month,dayOfMonth)));
+//        log.info(String.valueOf(LocalDate.of(year,month,dayOfMonth).isAfter(LocalDate.now())));
+//        String a="1998-12-15";
+//        Integer year = Integer.valueOf(a.substring(0,4));
+//        Integer month = Integer.valueOf(a.substring(5,7));
+//        Integer day = Integer.valueOf(a.substring(8,10));
+//
+//        String c = String.valueOf(LocalDate.of(year,month,day));
+//		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+a);
+//		System.out.println("ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"+c);
 
 	}
 
@@ -53,10 +58,10 @@ public class KomisAppApplication{
 	public class DataInitializer {
 		@PostConstruct
 		public void initDat() {
-			carRepository.save(new Car(Maker.HONDA,1,1, "1998-01-05", "1998-02-05", "AB1"));
-			carRepository.save(new Car(Maker.FIAT,2,2,"1999-01-05","2000-03-08","CD2"));
-			carRepository.save(new Car(Maker.SKODA,3,3,"1993-10-20","1994-01-05","EF3"));
-			carRepository.save(new Car(Maker.HONDA,4,4,"1998-11-05","1998-12-01","GH4"));
+			carRepository.save(new Car(Maker.HONDA,1589,5, new Date(98,01,05), new Date(98,2,5), "AB1111"));
+			carRepository.save(new Car(Maker.FIAT,900,4, new Date(99,2,5),new Date (100,3,11),"CD2222"));
+			carRepository.save(new Car(Maker.SKODA,2000,6,new Date(93,10,20), new Date(94,1,5),"EF3333"));
+			carRepository.save(new Car(Maker.HONDA,2500,2, new Date(98,10,5),new Date(98,11,1),"GH4444"));
 
 			customersRepository.save(new Customer("Jan", "Kowalski", "NHW399139", "43062460106"));
 			customersRepository.save(new Customer("Adam", "Nowak", "KQL847332", "07240779183"));
