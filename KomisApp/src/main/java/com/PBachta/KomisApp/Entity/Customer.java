@@ -10,13 +10,14 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String idCardNumber;
     private String peselNumber;
 
-    protected Customer(){}
+    protected Customer() {
+    }
 
     public Customer(String firstName, String lastName, String idCardNumber, String peselNumber) {
         this.firstName = firstName;
@@ -25,7 +26,7 @@ public class Customer {
         this.peselNumber = peselNumber;
     }
 
-    public Customer(long id, String firstName, String lastName, String idCardNumber, String peselNumber) {
+    public Customer(Long id, String firstName, String lastName, String idCardNumber, String peselNumber) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -37,32 +38,16 @@ public class Customer {
         return peselNumber;
     }
 
-    public void setPeselNumber(String peselNumber) {
-        this.peselNumber = peselNumber;
-    }
-
     public String getIdCardNumber() {
         return idCardNumber;
-    }
-
-    public void setIdCardNumber(String idCardNumber) {
-        this.idCardNumber = idCardNumber;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public Long getId() {

@@ -1,8 +1,13 @@
-## Zadanie 1 - IntivePatronage2018 - KomisApp
+## IntivePatronage2018 - KomisApp
 
 Program do obsugi bazy danych komisu samochodowego <br />
 Możliwość przegladania, dodawania, usuwania i aktualizacji danych w bazie samochodów (Car) oraz klientów (Customer)<br />
-<app_url> = http://localhost:8080
+<app_url> = http://localhost:8080<br />
+
+Link do dokumentacji Swagger: http://localhost:8080/swagger-ui.html<br />
+
+Link do konsoli bazy danych H2: http://localhost:8080/h2-console<br />
+Jako H2 JBDC URL należy podać:  jdbc:h2:mem:testdb
 
 ## Uruchomienie
 
@@ -15,22 +20,31 @@ Do uruchomienia wymagane są:
 Kroki: <br />
 W InteliJ importujemy projekt <br />
 wykonujemy polecenia: 
-- mvn clean install
-- mvn clean package <br />
+- mvn clean install <br />
 
 Wybieramy Run -> Run KomisAppAplication <br />
 W postmanie generujemy zapytania na podstawie poniższych danych
 
+##Implementacja
+
+W programie zawarte sa 2 implementcaje (obie bazują na H2 gdyż moje pierwsze zadanie bazowało już na H2)<br />
+Aby przełączać się między implementacjami należy ustawić odpowiedni parametr H2_STORAGE_ENABLED w pliku application.properties:
+- H2_STORAGE_ENABLED=false - implementacja CarService
+- H2_STORAGE_ENABLED=true - implementacja CarServiceH2
 
 ## Parametry zasobów
 
-Każdy zasób typu Car posiada cztery parametry:
-- maker
-- model
-- registrationNumber
-- vinNumber
+Każdy zasób typu Car posiada sześć parametrów(oraz id generowane automatycznie):
 
-Każdy zasób typu Customer posiada cztery parametry:
+- maker
+- engineCapacity
+- numberOfSeats
+- firstRegistrationDate
+- registrationCardIssueDate
+- registrationNumber<br />
+Przy dodawaniu nowego samochodu wszystkie parametry prócz numberOfSeats są wymagane
+
+Każdy zasób typu Customer posiada cztery parametry(oraz id generowane automatycznie):
 - firstName
 - lastName
 - idCardNumber
@@ -41,10 +55,11 @@ Każdy zasób typu Customer posiada cztery parametry:
 W kodzie programu dodano cztery zasoby typu Car oraz cztery zasoby typu Customer<br />
 
 Car:
-- "Subaru","Legacy","ZS85H55","4S3BP616556397994"
-- "Dodge","Caliber","ZGR02GU","1B3HB28B18D508661"
-- "Jeep","Patriot","ZSW1523","1J4FT28A99D140347"
-- "Ford","Expedition","ZP18KL","1FMRU15W61LA66899"
+- Maker.HONDA, 1589, 5, new Date(98, 1, 5), new Date(98, 2, 5), "AB1111"));
+- Maker.FIAT, 900, 4, new Date(99, 2, 5), new Date(100, 3, 11), "CD2222"));
+- Maker.SKODA, 2000, 6, new Date(93, 10, 20), new Date(94, 1, 5), "EF3333"));
+- Maker.HONDA, 2500, 2, new Date(98, 10, 5), new Date(98, 11, 1), "GH4444"));
+
 
 Customer:
 - "Jan", "Kowalski", "NHW399139", "43062460106"
@@ -54,6 +69,8 @@ Customer:
 
 ## Obsługa bazy samochodów (Car)
 
+Najłatwiejszym sposobem do obsługo zapytań jest użycie interfejsu Swaggera. Interfejs ten również generuje linki zapytań które można wklepić bezpośrednio do Postmana.
+
 GET: <app_url>/car <br />
 	zwraca wszystkie samochody w bazie danych
 	
@@ -62,34 +79,15 @@ GET: <app_url>/car/{id} <br />
 	
 POST: <app_url>/car <br />
 	tworzy nowy samochód w bazie danych <br />
-	wymagane jest podane wszytskich parametrów (maker, model, registrationNumber, vinNumber) <br />
-	przykład: <br />
-	<app_url>/car?maker=Subaru&model=Legacy&registrationNumber=ZS85H55&vinNumber=4S3BP616556397994
+	wszystkie parametry prócz numberOfSeats są wymagane  (maker, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber) <br />
 	
 DELETE: <app_url>/car/{id} <br />
 	usunięcie samochodu o podamym id
 	
 PUT: <app_url>/car/{id} <br />
 	aktualizacja danych samochodu o podanym id <br />
-	można podać dowolnie wybrane parametry do zmiany, pozostałe nie ulegną zmianie (maker, model, registrationNumber, vinNumber) <br />
-	przykład: <br />
-	<app_url>/car/1?maker=Subaru&registrationNumber=ZS85H5 <br />
-		w samochodzie o id = 1 zmieniony zostanie parametr maker oraz registrationNumber, pozostałe parametry pozostaną bez zmian
-		
-## Obsługa bazy samochodów (Car) - Funkcje dodatkowe:
-
-GET: <app_url>/car/maker={maker} <br />
-	zwraca wszystkie samochody o tym samym parametrze maker
-
-GET: <app_url>/car/model={model} <br />
-	zwraca wszystkie samochody o tym samym parametrze model
-
-GET: <app_url>/car/registrationNr={registrationNumber} <br />
-	zwraca samochód o podanym registrationNumber
-
-GET: <app_url>/car/vin={vinNumber} <br />
-	zwraca samochód o podamym vinNumber
-
+	można podać dowolnie wybrane parametry do zmiany, pozostałe nie ulegną zmianie, id samochodu do zmiany jest wymagane (id, maker, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber) <br />
+			
 ## Obsługa bazy klientów (Customer)
 
 GET: <app_url>/customer <br />

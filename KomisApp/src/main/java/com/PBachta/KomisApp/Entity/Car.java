@@ -1,68 +1,81 @@
 package com.PBachta.KomisApp.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.PBachta.KomisApp.DataTypes.Maker;
+import com.PBachta.KomisApp.Validation.IsCorrectCar;
+
+import javax.persistence.*;
+import java.sql.Date;
+
 
 @Entity
+@NamedQuery(name = "find_all_cars", query = "select c from Car c")
+@IsCorrectCar
 public class Car {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    private String maker;
-    private String model;
+    @GeneratedValue
+    private Long id;
+    @Enumerated
+    private Maker maker;
+    private Integer engineCapacity;
+    private Integer numberOfSeats;
+    private Date firstRegistrationDate;
+    private Date registrationCardIssueDate;
     private String registrationNumber;
-    private String vinNumber;
 
-    protected Car(){}
 
-    public Car(String maker, String model, String registrationNumber, String vinNumber) {
-        this.maker = maker;
-        this.model = model;
-        this.registrationNumber = registrationNumber;
-        this.vinNumber = vinNumber;
+    protected Car() {
     }
 
-    public Car(long id, String maker, String model, String registrationNumber, String vinNumber){
+    public Car(Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber) {
+        this.maker = maker;
+        this.engineCapacity = engineCapacity;
+        this.numberOfSeats = numberOfSeats;
+        this.firstRegistrationDate = firstRegistrationDate;
+        this.registrationCardIssueDate = registrationCardIssueDate;
+        this.registrationNumber = registrationNumber;
+    }
+
+    public Car(Long id, Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber) {
         this.id = id;
         this.maker = maker;
-        this.model = model;
+        this.engineCapacity = engineCapacity;
+        this.numberOfSeats = numberOfSeats;
+        this.firstRegistrationDate = firstRegistrationDate;
+        this.registrationCardIssueDate = registrationCardIssueDate;
         this.registrationNumber = registrationNumber;
-        this.vinNumber = vinNumber;
     }
 
-    public String getMaker() {
+    public Maker getMaker() {
         return maker;
     }
 
-    public void setMaker(String maker) {
+    public void setMaker(Maker maker) {
         this.maker = maker;
     }
 
-    public String getModel() {
-        return model;
+    public Integer getEngineCapacity() {
+        return engineCapacity;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public Integer getNumberOfSeats() {
+        return numberOfSeats;
+    }
+
+    public Date getFirstRegistrationDate() {
+        return firstRegistrationDate;
+    }
+
+    public Date getRegistrationCardIssueDate() {
+        return registrationCardIssueDate;
     }
 
     public String getRegistrationNumber() {
         return registrationNumber;
     }
 
-    public void setRegistrationNumber(String registraionNumber) {
-        this.registrationNumber = registraionNumber;
-    }
-
-    public String getVinNumber() {
-        return vinNumber;
-    }
-
-    public void setVinNumber(String vinNumber) {
-        this.vinNumber = vinNumber;
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
     }
 
     public Long getId() {

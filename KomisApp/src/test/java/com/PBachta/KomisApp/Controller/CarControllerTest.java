@@ -1,8 +1,12 @@
 package com.PBachta.KomisApp.Controller;
 
 import static org.junit.Assert.assertEquals;
+
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
+
+import com.PBachta.KomisApp.DataTypes.Maker;
 import com.PBachta.KomisApp.Entity.Car;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +25,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import springfox.documentation.spring.web.json.Json;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -37,8 +42,8 @@ public class CarControllerTest {
         mockMvc= MockMvcBuilders.standaloneSetup(carControllerMock).build();
 
         List<Car> carList = Arrays.asList(
-                new Car(1, "Subaru", "Legacy", "ZS85H55", "4S3BP616556397994"),
-                new Car(2,"Dodge","Caliber","ZGR02GU","1B3HB28B18D508661")
+                new Car(1L, Maker.HONDA, 1589, 5, new Date(98, 1, 5), new Date(98, 2, 5), "AB1111"),
+                new Car(2L, Maker.FIAT, 900, 4, new Date(99, 2, 5), new Date(100, 3, 11), "CD2222")
         );
 
         Mockito.when(carControllerMock.getAllCars()).thenReturn(carList);
@@ -49,8 +54,8 @@ public class CarControllerTest {
         MockHttpServletResponse response = result.getResponse();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
-        String expected = "[{id: 1,maker: Subaru,model: Legacy,registrationNumber: ZS85H55,vinNumber: 4S3BP616556397994}," +
-                "{id: 2,maker: Dodge,model: Caliber,registrationNumber: ZGR02GU,vinNumber: 1B3HB28B18D508661}]";
+        String expected = "[{id:1,maker:HONDA,engineCapacity:1589,numberOfSeats:5,firstRegistrationDate:1998-02-05,registrationCardIssueDate:1998-03-05,registrationNumber:AB1111},"+
+                "{id:2,maker:FIAT,engineCapacity:900,numberOfSeats:4,firstRegistrationDate:1999-03-05,registrationCardIssueDate:2000-04-11,registrationNumber:CD2222}]";
 
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
@@ -60,9 +65,9 @@ public class CarControllerTest {
         MockitoAnnotations.initMocks(this);
         mockMvc= MockMvcBuilders.standaloneSetup(carControllerMock).build();
 
-        Car car = (new Car(1, "Subaru", "Legacy", "ZS85H55", "4S3BP616556397994"));
+        Car car = (new Car(1L, Maker.HONDA, 1589, 5, new Date(98, 1, 5), new Date(98, 2, 5), "AB1111"));
 
-        Mockito.when(carControllerMock.getCarById(1)).thenReturn(car);
+        Mockito.when(carControllerMock.getCarById(1L)).thenReturn(car);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/car/1").accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -70,7 +75,7 @@ public class CarControllerTest {
         MockHttpServletResponse response = result.getResponse();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
-        String expected = "{id: 1,maker: Subaru,model: Legacy,registrationNumber: ZS85H55,vinNumber: 4S3BP616556397994}";
+        String expected = "{id:1,maker:HONDA,engineCapacity:1589,numberOfSeats:5,firstRegistrationDate:1998-02-05,registrationCardIssueDate:1998-03-05,registrationNumber:AB1111}";
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
@@ -79,18 +84,16 @@ public class CarControllerTest {
         MockitoAnnotations.initMocks(this);
         mockMvc= MockMvcBuilders.standaloneSetup(carControllerMock).build();
 
-        Car car = (new Car(1, "Subaru", "Legacy", "ZS85H55", "4S3BP616556397994"));
+        Car car = (new Car(1L, Maker.HONDA, 1589, 5, new Date(98, 1, 5), new Date(98, 2, 5), "AB1111"));
 
-        Mockito.when(carControllerMock.postNewCar( "Subaru", "Legacy", "ZS85H55", "4S3BP616556397994")).thenReturn(car);
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/car?maker=Subaru&model=Legacy&registrationNumber=ZS85H55&vinNumber=4S3BP616556397994").contentType(MediaType.APPLICATION_JSON);
+
+        Mockito.when(carControllerMock.postNewCar( Maker.HONDA, 1589, 5, new Date(98, 1, 5), new Date(98, 2, 5), "AB1111")).thenReturn(car);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/car?maker=HONDA&engineCapacity=1589&numberOfSeats=5&firstRegistrationDate=1988-01-05&registrationCardIssueDate=1988-02-05&registrationNumber=AB1111").contentType(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
-
-        String expected = "{id: 1,maker: Subaru,model: Legacy,registrationNumber: ZS85H55,vinNumber: 4S3BP616556397994}";
-        JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
     @Test
@@ -99,10 +102,10 @@ public class CarControllerTest {
         mockMvc= MockMvcBuilders.standaloneSetup(carControllerMock).build();
 
         List<Car> carList = Arrays.asList(
-                new Car(1, "Subaru", "Legacy", "ZS85H55", "4S3BP616556397994")
+                new Car(1L, Maker.HONDA, 1589, 5, new Date(98, 1, 5), new Date(98, 2, 5), "AB1111")
         );
 
-        Mockito.when(carControllerMock.deleteCar(2)).thenReturn(carList);
+        Mockito.when(carControllerMock.deleteCar(2L)).thenReturn(carList);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/car/2").contentType(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -110,7 +113,7 @@ public class CarControllerTest {
         MockHttpServletResponse response = result.getResponse();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
-        String expected = "[{id: 1,maker: Subaru,model: Legacy,registrationNumber: ZS85H55,vinNumber: 4S3BP616556397994}]";
+        String expected = "[{id:1,maker:HONDA,engineCapacity:1589,numberOfSeats:5,firstRegistrationDate:1998-02-05,registrationCardIssueDate:1998-03-05,registrationNumber:AB1111}]";
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
@@ -118,19 +121,20 @@ public class CarControllerTest {
     public void putNewCarData() throws Exception{
         MockitoAnnotations.initMocks(this);
         mockMvc= MockMvcBuilders.standaloneSetup(carControllerMock).build();
-        Car car = (new Car(1, "Ford", "Legacy", "ZGR02GU", "4S3BP616556397994"));
+        Car car = (new Car(1L, Maker.FIAT, 1200, 5, new Date(98, 1, 5), new Date(98, 2, 5), "AB1111"));
 
-        Mockito.when(carControllerMock.putNewCarData(1, "Ford", null, "ZGR02GU", null)).thenReturn(car);
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/car/1?maker=Ford&registrationNumber=ZGR02GU").contentType(MediaType.APPLICATION_JSON);
+        Mockito.when(carControllerMock.putNewCarData(1L, Maker.FIAT, 1200,null,null, null, null)).thenReturn(car);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/car/1?maker=FIAT&engineCapacity=1200").contentType(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
-        String expected = "{id: 1,maker: Ford,model: Legacy,registrationNumber: ZGR02GU,vinNumber: 4S3BP616556397994}";
+        String expected = "{id:1,maker:FIAT,engineCapacity:1200,numberOfSeats:5,firstRegistrationDate:1998-02-05,registrationCardIssueDate:1998-03-05,registrationNumber:AB1111}";
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
+
 }
 
 

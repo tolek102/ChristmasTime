@@ -33,7 +33,7 @@ public class CustomerServiceTest {
 
     @Test
     public void getByIdTest(){
-        assertEquals("getByIdTest function failure - expected id",2L, customerService.getById(2).getId().longValue());
+        assertEquals("getByIdTest function failure - expected id","2", customerService.getById(2L).getId().toString());
     }
 
     @Test
@@ -46,19 +46,19 @@ public class CustomerServiceTest {
     @Test
     public void deleteCustomerTest(){
         int initSize = customerService.getAll().size();
-        customerService.delete(4);
+        customerService.delete(4L);
         assertEquals("deleteCustomerTest function failure - expected size",initSize-1, customerService.getAll().size());
     }
 
     @Test
     public void putNewCustomerDataTest(){
         int initSize = customerService.getAll().size();
-        customerService.put(1, "Changed", null, null, null);
-        assertEquals("putNewCustomerDataTest function failure - expected id", 1L,customerService.getById(1).getId().longValue() );
-        assertEquals("putNewCustomerDataTest function failure - expected First Name","Changed",customerService.getById(1).getFirstName());
-        assertEquals("putNewCustomerDataTest function failure - expected Last Name","Kowalski", customerService.getById(1).getLastName());
-        assertEquals("putNewCustomerDataTest function failure - expected ID card number","NHW399139", customerService.getById(1).getIdCardNumber());
-        assertEquals("putNewCustomerDataTest function failure - expected PESEL number","43062460106", customerService.getById(1).getPeselNumber());
+        customerService.put(1L, "Changed", null, null, null);
+        assertEquals("putNewCustomerDataTest function failure - expected id", "1",customerService.getById(1L).getId().toString() );
+        assertEquals("putNewCustomerDataTest function failure - expected First Name","Changed",customerService.getById(1L).getFirstName());
+        assertEquals("putNewCustomerDataTest function failure - expected Last Name","Kowalski", customerService.getById(1L).getLastName());
+        assertEquals("putNewCustomerDataTest function failure - expected ID card number","NHW399139", customerService.getById(1L).getIdCardNumber());
+        assertEquals("putNewCustomerDataTest function failure - expected PESEL number","43062460106", customerService.getById(1L).getPeselNumber());
         assertEquals("putNewCustomerDataTest function failure - expected size",initSize, customerService.getAll().size());
     }
 }

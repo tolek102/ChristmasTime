@@ -18,9 +18,11 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Arrays;
 import java.util.List;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -35,11 +37,11 @@ public class CustomerControllerTest {
     @Test
     public void getAllTest() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mockMvc= MockMvcBuilders.standaloneSetup(customerControllerMock).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(customerControllerMock).build();
 
         List<Customer> customerList = Arrays.asList(
-                new Customer(1, "Jan", "Kowalski", "NHW399139", "43062460106"),
-                new Customer(2,"Adam","Nowak","KQL847332","07240779183")
+                new Customer(1L, "Jan", "Kowalski", "NHW399139", "43062460106"),
+                new Customer(2L, "Adam", "Nowak", "KQL847332", "07240779183")
         );
 
         Mockito.when(customerControllerMock.getAllCustomers()).thenReturn(customerList);
@@ -58,11 +60,11 @@ public class CustomerControllerTest {
     @Test
     public void getByIdTest() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mockMvc= MockMvcBuilders.standaloneSetup(customerControllerMock).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(customerControllerMock).build();
 
-        Customer customer = (new Customer(1, "Jan", "Kowalski", "NHW399139", "43062460106"));
+        Customer customer = (new Customer(1L, "Jan", "Kowalski", "NHW399139", "43062460106"));
 
-        Mockito.when(customerControllerMock.getCustomerById(1)).thenReturn(customer);
+        Mockito.when(customerControllerMock.getCustomerById(1L)).thenReturn(customer);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/customer/1").accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -77,11 +79,11 @@ public class CustomerControllerTest {
     @Test
     public void postNewCustomerTest() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mockMvc= MockMvcBuilders.standaloneSetup(customerControllerMock).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(customerControllerMock).build();
 
-        Customer customer = (new Customer(1, "Jan", "Kowalski", "NHW399139", "43062460106"));
+        Customer customer = (new Customer(1L, "Jan", "Kowalski", "NHW399139", "43062460106"));
 
-        Mockito.when(customerControllerMock.postNewCustomer("Jan","Kowalski", "NHW399139", "43062460106" )).thenReturn(customer);
+        Mockito.when(customerControllerMock.postNewCustomer("Jan", "Kowalski", "NHW399139", "43062460106")).thenReturn(customer);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/customer?firstName=Jan&lastName=Kowalski&idCardNumber=NHW399139&peselNumber=43062460106").accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -96,13 +98,13 @@ public class CustomerControllerTest {
     @Test
     public void deleteCustomerTest() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mockMvc= MockMvcBuilders.standaloneSetup(customerControllerMock).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(customerControllerMock).build();
 
         List<Customer> customerList = Arrays.asList(
-                new Customer(1, "Jan", "Kowalski", "NHW399139", "43062460106")
+                new Customer(1L, "Jan", "Kowalski", "NHW399139", "43062460106")
         );
 
-        Mockito.when(customerControllerMock.deleteCustomer(2)).thenReturn(customerList);
+        Mockito.when(customerControllerMock.deleteCustomer(2L)).thenReturn(customerList);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/customer/2").accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -117,11 +119,11 @@ public class CustomerControllerTest {
     @Test
     public void putNewCustomerDataTest() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mockMvc= MockMvcBuilders.standaloneSetup(customerControllerMock).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(customerControllerMock).build();
 
-        Customer customer = (new Customer(1, "Jan", "Kowalski", "KQL847332", "07240779183"));
+        Customer customer = (new Customer(1L, "Jan", "Kowalski", "KQL847332", "07240779183"));
 
-        Mockito.when(customerControllerMock.putNewCustomerData(1,null, null, "KQL847332","07240779183" )).thenReturn(customer);
+        Mockito.when(customerControllerMock.putNewCustomerData(1L, null, null, "KQL847332", "07240779183")).thenReturn(customer);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/customer/1?idCardNumber=KQL847332&peselNumber=07240779183").accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();

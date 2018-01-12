@@ -1,7 +1,7 @@
 package com.PBachta.KomisApp.Controller;
 
 import com.PBachta.KomisApp.Entity.Customer;
-import com.PBachta.KomisApp.Service.CustomerService;
+import com.PBachta.KomisApp.Service.CustomerServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +11,9 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/customer", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CustomerController {
+
     @Autowired
-    private CustomerService customerService;
+    private CustomerServiceInterface customerService;
 
     //Show all customers in database
     @GetMapping(value = "")
@@ -26,7 +27,7 @@ public class CustomerController {
     //Search customer by id
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public Customer getCustomerById(@PathVariable("id") long id) {
+    public Customer getCustomerById(@PathVariable("id") Long id) {
 
         return customerService.getById(id);
     }
@@ -47,7 +48,7 @@ public class CustomerController {
     //Delete customer from database
     @DeleteMapping(value = "/{id}")
     @ResponseBody
-    public List<Customer> deleteCustomer(@PathVariable("id") long id) {
+    public List<Customer> deleteCustomer(@PathVariable("id") Long id) {
 
         return customerService.delete(id);
     }
@@ -56,7 +57,7 @@ public class CustomerController {
     //Update existing customer information
     @PutMapping(value = "/{id}")
     @ResponseBody
-    public Customer putNewCustomerData(@PathVariable("id") long id,
+    public Customer putNewCustomerData(@PathVariable("id") Long id,
                                        @RequestParam(value = "firstName", required = false) String firstName,
                                        @RequestParam(value = "lastName", required = false) String lastName,
                                        @RequestParam(value = "idCardNumber", required = false) String idCardNumber,
