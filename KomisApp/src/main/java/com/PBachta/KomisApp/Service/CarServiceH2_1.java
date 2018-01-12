@@ -8,56 +8,47 @@
 //import org.springframework.jdbc.core.JdbcTemplate;
 //import org.springframework.stereotype.Repository;
 //
+//import java.sql.Date;
 //import java.util.List;
 //
 ////@Component
 //@Repository
 //@ConditionalOnProperty(prefix = "", name = "H2_STORAGE_ENABLED", havingValue="true")
-//class CarServiceH2 implements CarServiceInteface {
+//class CarServiceH2_1{
 //
 //    @Autowired
 //    private JdbcTemplate jdbcTemplate;
 //
-//    @Override
-//    public List<Car> getAll() {
 //
+//    public List<Car> getAll() {
 //        return jdbcTemplate.query("select * from CarDatabase",
 //                new BeanPropertyRowMapper<>(Car.class));
-//}
+//    }
 //
-//    @Override
-//   public Car getById(Long id) {
 //
+//    public Car getById(Long id) {
 //        return jdbcTemplate.queryForObject("select * from CarDatabase where id=?", new Object[]{id},
 //                new BeanPropertyRowMapper<>(Car.class));
 //    }
 //
-//    @Override
+//
 //    public Car post(Maker maker, Integer engineCapacity, Integer numberOfSeats, String firstRegistrationDate, String registrationCardIssueDate, String registrationNumber) {
-//
-//
-////        String a = jdbcTemplate.queryForList("SELECT MAX(ID) FROM CARDATABASE").toString().replace("[{MAX(ID)=","").replace("}]","");
 //        String makerS = maker.toString();
-////        Long id =  getAll().size() + 1L;
-//        //Long id = Long.valueOf(a);
-////        System.out.println("cccccccccccccccccccccccccccccccccccccccccccccccccccccc "+ a);
-////        System.out.println("cccccccccccccccccccccccccccccccccccccccccccccccccccccc "+ Long.valueOf(a));
 //
 //       jdbcTemplate.update("insert into CarDatabase (id, maker, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber)"
-//                        +  "values(?, ?, ?, ?, ?, ?, ?)",
+//               +  "values(?, ?, ?, ?, ?, ?, ?)",
 //               makerS, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber);
 //        return getById(1L);
 //    }
 //
-//    @Override
-//    public List<Car> delete(Long id) {
 //
+//    public List<Car> delete(Long id) {
 //        jdbcTemplate.update("delete from CarDatabase where id = ?", id);
 //        return getAll();
 //    }
 //
-//    @Override
-//    public Car put(Long id, Maker maker, Integer engineCapacity, Integer numberOfSeats, String firstRegistrationDate, String registrationCardIssueDate, String registrationNumber) {
+//
+//    public Car put(Long id, Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber) {
 //
 //        Car car = getById(id);
 //

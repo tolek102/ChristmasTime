@@ -5,39 +5,35 @@ import com.PBachta.KomisApp.Entity.Car;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
-//@Component
+
 @Repository
 @Transactional
-@ConditionalOnProperty(prefix = "", name = "H2_STORAGE_ENABLED", havingValue="true")
+@ConditionalOnProperty(prefix = "", name = "H2_STORAGE_ENABLED", havingValue = "true")
 class CarServiceH2 implements CarServiceInteface {
 
     @PersistenceContext
+    private
     EntityManager entityManager;
 
     @Override
     public List<Car> getAll() {
-
         TypedQuery<Car> namedQuery = entityManager.createNamedQuery("find_all_cars", Car.class);
         return namedQuery.getResultList();
-}
+    }
 
     @Override
-   public Car getById(Long id) {
-
+    public Car getById(Long id) {
         return entityManager.find(Car.class, id);
     }
 
     @Override
     public Car post(Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber) {
-
         Car car = new Car(maker, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber);
         return entityManager.merge(car);
     }
@@ -67,7 +63,12 @@ class CarServiceH2 implements CarServiceInteface {
         if (registrationNumber == null)
             registrationNumber = entryCar.getRegistrationNumber();
 
-        Car car = new Car(id, maker, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber);
-        return entityManager.merge(car);
+        try {
+            Car car = new Car(id, maker, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber);
+            entityManager.merge(car);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Car data for upload are incorrect. Please correct the data and try again");
+        }
+        return entityManager.find(Car.class, id);
     }
 }

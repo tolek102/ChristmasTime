@@ -16,7 +16,8 @@ public class Customer {
     private String idCardNumber;
     private String peselNumber;
 
-    protected Customer(){}
+    protected Customer() {
+    }
 
     public Customer(String firstName, String lastName, String idCardNumber, String peselNumber) {
         this.firstName = firstName;
@@ -37,32 +38,16 @@ public class Customer {
         return peselNumber;
     }
 
-    public void setPeselNumber(String peselNumber) {
-        this.peselNumber = peselNumber;
-    }
-
     public String getIdCardNumber() {
         return idCardNumber;
-    }
-
-    public void setIdCardNumber(String idCardNumber) {
-        this.idCardNumber = idCardNumber;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public Long getId() {

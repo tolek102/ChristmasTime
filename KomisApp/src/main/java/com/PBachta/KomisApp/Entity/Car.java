@@ -7,9 +7,8 @@ import javax.persistence.*;
 import java.sql.Date;
 
 
-
 @Entity
-@NamedQuery(name="find_all_cars", query="select c from Car c")
+@NamedQuery(name = "find_all_cars", query = "select c from Car c")
 @IsCorrectCar
 public class Car {
 
@@ -25,9 +24,10 @@ public class Car {
     private String registrationNumber;
 
 
-    protected Car(){}
+    protected Car() {
+    }
 
-    public Car(Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber ) {
+    public Car(Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber) {
         this.maker = maker;
         this.engineCapacity = engineCapacity;
         this.numberOfSeats = numberOfSeats;
@@ -36,7 +36,7 @@ public class Car {
         this.registrationNumber = registrationNumber;
     }
 
-    public Car(Long id, Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber){
+    public Car(Long id, Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber) {
         this.id = id;
         this.maker = maker;
         this.engineCapacity = engineCapacity;
@@ -58,32 +58,16 @@ public class Car {
         return engineCapacity;
     }
 
-    public void setEngineCapacity(Integer engineCapacity) {
-        this.engineCapacity = engineCapacity;
-    }
-
     public Integer getNumberOfSeats() {
         return numberOfSeats;
-    }
-
-    public void setNumberOfSeats(Integer numberOfSeats) {
-        this.numberOfSeats = numberOfSeats;
     }
 
     public Date getFirstRegistrationDate() {
         return firstRegistrationDate;
     }
 
-    public void setFirstRegistrationDate(Date firstRegistrationDate) {
-        this.firstRegistrationDate = firstRegistrationDate;
-    }
-
     public Date getRegistrationCardIssueDate() {
         return registrationCardIssueDate;
-    }
-
-    public void setRegistrationCardIssueDate(Date registrationCardIssueDate) {
-        this.registrationCardIssueDate = registrationCardIssueDate;
     }
 
     public String getRegistrationNumber() {

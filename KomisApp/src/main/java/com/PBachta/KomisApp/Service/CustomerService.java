@@ -16,7 +16,7 @@ class CustomerService implements CustomerServiceInterface {
 
     public List<Customer> getAll() {
         List<Customer> customerList = new ArrayList<>();
-        for(Customer customer : customerRepository.findAll()){
+        for (Customer customer : customerRepository.findAll()) {
             customerList.add(customer);
         }
 
@@ -30,7 +30,7 @@ class CustomerService implements CustomerServiceInterface {
     public Customer getById(Long id) {
         Customer customer = customerRepository.findOne(id);
         if (customer == null) {
-            throw new RuntimeException("Customer with id "+id+" not found");
+            throw new RuntimeException("Customer with id " + id + " not found");
         }
         return customer;
     }
@@ -52,12 +52,12 @@ class CustomerService implements CustomerServiceInterface {
     public Customer put(Long id, String firstName, String lastName, String idCardNumber, String peselNumber) {
         Customer customer = customerRepository.findOne(id);
         if (customer == null) {
-            throw new RuntimeException("Customer with id "+id+" not found");
+            throw new RuntimeException("Customer with id " + id + " not found");
         }
 
-        if(firstName == null)
+        if (firstName == null)
             firstName = customer.getFirstName();
-        if(lastName == null)
+        if (lastName == null)
             lastName = customer.getLastName();
         if (idCardNumber == null)
             idCardNumber = customer.getIdCardNumber();
@@ -75,12 +75,12 @@ class CustomerService implements CustomerServiceInterface {
 
     public List<Customer> getByFirstName(String firstName) {
         List<Customer> customerList = new ArrayList<>();
-        for(Customer customer : customerRepository.findByFirstName(firstName)){
+        for (Customer customer : customerRepository.findByFirstName(firstName)) {
             customerList.add(customer);
         }
 
         if (customerList.size() == 0) {
-            throw new RuntimeException("Customer with first name "+firstName+" not found");
+            throw new RuntimeException("Customer with first name " + firstName + " not found");
         }
         return customerList;
     }
@@ -88,12 +88,12 @@ class CustomerService implements CustomerServiceInterface {
 
     public List<Customer> getByLastName(String lastName) {
         List<Customer> customerList = new ArrayList<>();
-        for(Customer customer : customerRepository.findByLastName(lastName)){
+        for (Customer customer : customerRepository.findByLastName(lastName)) {
             customerList.add(customer);
         }
 
         if (customerList.size() == 0) {
-            throw new RuntimeException("Customer with last name "+lastName+" not found");
+            throw new RuntimeException("Customer with last name " + lastName + " not found");
         }
         return customerList;
     }
@@ -102,7 +102,7 @@ class CustomerService implements CustomerServiceInterface {
     public Customer getByIdCardNumber(String idCardNumber) {
         Customer customer = customerRepository.findByIdCardNumber(idCardNumber);
         if (customer == null) {
-            throw new RuntimeException("Customer with ID Card number "+idCardNumber+" not found");
+            throw new RuntimeException("Customer with ID Card number " + idCardNumber + " not found");
         }
         return customer;
     }
@@ -111,7 +111,7 @@ class CustomerService implements CustomerServiceInterface {
     public Customer getByIdPeselNumber(String peselNumber) {
         Customer customer = customerRepository.findByPeselNumber(peselNumber);
         if (customer == null) {
-            throw new RuntimeException("Customer with PESEL number "+peselNumber+" not found");
+            throw new RuntimeException("Customer with PESEL number " + peselNumber + " not found");
         }
         return customer;
     }
