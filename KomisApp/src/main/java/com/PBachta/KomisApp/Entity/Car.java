@@ -2,7 +2,6 @@ package com.PBachta.KomisApp.Entity;
 
 import com.PBachta.KomisApp.DataTypes.Maker;
 import com.PBachta.KomisApp.Validation.IsCorrectCar;
-
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -26,6 +25,7 @@ public class Car {
 
     protected Car() {
     }
+
 
     public Car(Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber) {
         this.maker = maker;
@@ -58,16 +58,32 @@ public class Car {
         return engineCapacity;
     }
 
+    public void setEngineCapacity(Integer engineCapacity) {
+        this.engineCapacity = engineCapacity;
+    }
+
     public Integer getNumberOfSeats() {
         return numberOfSeats;
+    }
+
+    public void setNumberOfSeats(Integer numberOfSeats) {
+        this.numberOfSeats = numberOfSeats;
     }
 
     public Date getFirstRegistrationDate() {
         return firstRegistrationDate;
     }
 
+    public void setFirstRegistrationDate(Date firstRegistrationDate) {
+        this.firstRegistrationDate = firstRegistrationDate;
+    }
+
     public Date getRegistrationCardIssueDate() {
         return registrationCardIssueDate;
+    }
+
+    public void setRegistrationCardIssueDate(Date registrationCardIssueDate) {
+        this.registrationCardIssueDate = registrationCardIssueDate;
     }
 
     public String getRegistrationNumber() {

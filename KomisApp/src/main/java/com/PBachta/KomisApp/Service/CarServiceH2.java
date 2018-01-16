@@ -50,11 +50,11 @@ class CarServiceH2 implements CarServiceInteface {
 
         Car entryCar = getById(id);
 
-        if(maker == null)
+        if (maker == null)
             maker = entryCar.getMaker();
-        if(engineCapacity == null)
+        if (engineCapacity == null)
             engineCapacity = entryCar.getEngineCapacity();
-        if(numberOfSeats == null)
+        if (numberOfSeats == null)
             numberOfSeats = entryCar.getNumberOfSeats();
         if (firstRegistrationDate == null)
             firstRegistrationDate = entryCar.getFirstRegistrationDate();

@@ -1,14 +1,12 @@
 package com.PBachta.KomisApp.Service;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -27,38 +25,38 @@ public class CustomerServiceTest {
 //        {"id":4,"firstName":"Andrzej","lastName":"Zawada","idCardNumber":"EXY304697","peselNumber":"65020522882"}]
 
     @Test
-    public void getAllTest(){
-        assertEquals("getAllTest function failure - expected size",4, customerService.getAll().size());
+    public void getAllTest() {
+        assertEquals("getAllTest function failure - expected size", 4, customerService.getAll().size());
     }
 
     @Test
-    public void getByIdTest(){
-        assertEquals("getByIdTest function failure - expected id","2", customerService.getById(2L).getId().toString());
+    public void getByIdTest() {
+        assertEquals("getByIdTest function failure - expected id", "2", customerService.getById(2L).getId().toString());
     }
 
     @Test
-    public void postNewCustometTest(){
+    public void postNewCustometTest() {
         int initSize = customerService.getAll().size();
-        customerService.post("First", "Last", "ID Number", "PESEL");
-        assertEquals("postNewCustometTest function failure - expected size",initSize + 1,customerService.getAll().size());
+        customerService.post("First", "Last", "EXY304697", "88016349642");
+        assertEquals("postNewCustometTest function failure - expected size", initSize + 1, customerService.getAll().size());
     }
 
     @Test
-    public void deleteCustomerTest(){
+    public void deleteCustomerTest() {
         int initSize = customerService.getAll().size();
         customerService.delete(4L);
-        assertEquals("deleteCustomerTest function failure - expected size",initSize-1, customerService.getAll().size());
+        assertEquals("deleteCustomerTest function failure - expected size", initSize - 1, customerService.getAll().size());
     }
 
     @Test
-    public void putNewCustomerDataTest(){
+    public void putNewCustomerDataTest() {
         int initSize = customerService.getAll().size();
         customerService.put(1L, "Changed", null, null, null);
-        assertEquals("putNewCustomerDataTest function failure - expected id", "1",customerService.getById(1L).getId().toString() );
-        assertEquals("putNewCustomerDataTest function failure - expected First Name","Changed",customerService.getById(1L).getFirstName());
-        assertEquals("putNewCustomerDataTest function failure - expected Last Name","Kowalski", customerService.getById(1L).getLastName());
-        assertEquals("putNewCustomerDataTest function failure - expected ID card number","NHW399139", customerService.getById(1L).getIdCardNumber());
-        assertEquals("putNewCustomerDataTest function failure - expected PESEL number","43062460106", customerService.getById(1L).getPeselNumber());
-        assertEquals("putNewCustomerDataTest function failure - expected size",initSize, customerService.getAll().size());
+        assertEquals("putNewCustomerDataTest function failure - expected id", "1", customerService.getById(1L).getId().toString());
+        assertEquals("putNewCustomerDataTest function failure - expected First Name", "Changed", customerService.getById(1L).getFirstName());
+        assertEquals("putNewCustomerDataTest function failure - expected Last Name", "Kowalski", customerService.getById(1L).getLastName());
+        assertEquals("putNewCustomerDataTest function failure - expected ID card number", "NHW399139", customerService.getById(1L).getIdCardNumber());
+        assertEquals("putNewCustomerDataTest function failure - expected PESEL number", "43062460106", customerService.getById(1L).getPeselNumber());
+        assertEquals("putNewCustomerDataTest function failure - expected size", initSize, customerService.getAll().size());
     }
 }
