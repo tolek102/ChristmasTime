@@ -5,15 +5,13 @@ import com.PBachta.KomisApp.Entity.Car;
 import com.PBachta.KomisApp.Repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@ConditionalOnProperty(prefix = "", name = "H2_STORAGE_ENABLED", havingValue = "false")
+@ConditionalOnProperty(prefix = "", name = "H2_STORAGE_ENABLED", havingValue = "false", matchIfMissing = true)
 class CarService implements CarServiceInteface {
 
 
@@ -44,7 +42,6 @@ class CarService implements CarServiceInteface {
 
 
     public Car post(Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber) {
-
         Car car = new Car(maker, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber);
         carRepository.save(car);
         return car;

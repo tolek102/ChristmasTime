@@ -2,7 +2,6 @@ package com.PBachta.KomisApp.Validation;
 
 
 import com.PBachta.KomisApp.Entity.Car;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.sql.Date;
@@ -33,6 +32,7 @@ public class IsCorrectCarValidator implements ConstraintValidator<IsCorrectCar, 
             return false;
         }
 
+
         //Number Of Seats
         Integer numberOfSeats = car.getNumberOfSeats();
         Integer minNumberOfSeats = 1;
@@ -46,6 +46,7 @@ public class IsCorrectCarValidator implements ConstraintValidator<IsCorrectCar, 
             addMessage("NumberOfSeats is incorrect", "Number of seats", context);
             return false;
         }
+
 
         //First Registration Date
         Calendar currentTime = Calendar.getInstance();
@@ -62,6 +63,7 @@ public class IsCorrectCarValidator implements ConstraintValidator<IsCorrectCar, 
             return false;
         }
 
+
         // Registration Card Issue Date
         Date cardIssueDate = car.getRegistrationCardIssueDate();
         if (cardIssueDate == null) {
@@ -74,6 +76,7 @@ public class IsCorrectCarValidator implements ConstraintValidator<IsCorrectCar, 
             return false;
         }
 
+
         //Registration Number
         String registrationNumber = car.getRegistrationNumber();
         if (registrationNumber == null) {
@@ -81,7 +84,7 @@ public class IsCorrectCarValidator implements ConstraintValidator<IsCorrectCar, 
             return false;
         }
 
-        if (!registrationNumber.matches("[A-Z][A-Z][\\d]*") || registrationNumber.length() > 10 || registrationNumber.substring(0, 1).equals(registrationNumber.substring(1, 2))) {
+        if (!registrationNumber.matches("[A-Z][A-Z][\\d]{1,8}") || registrationNumber.substring(0, 1).equals(registrationNumber.substring(1, 2))) {
             addMessage("Registration number is incorrect", "Registration number", context);
             return false;
         }

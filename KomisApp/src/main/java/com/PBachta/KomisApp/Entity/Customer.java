@@ -1,9 +1,11 @@
 package com.PBachta.KomisApp.Entity;
 
+import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class Customer {
@@ -13,7 +15,9 @@ public class Customer {
     private Long id;
     private String firstName;
     private String lastName;
+    @Pattern(message = "Incorrect ID Card Number", regexp = "[A-Z]{3}[\\d]{6}")
     private String idCardNumber;
+    @Pattern(message = "Incorrect PESEL number", regexp = "[\\d]{11}")
     private String peselNumber;
 
     protected Customer() {
