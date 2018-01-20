@@ -1,5 +1,7 @@
 package com.PBachta.KomisApp.Entity;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,12 +14,21 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @ApiModelProperty(notes = "Identification number")
     private Long id;
+
+    @ApiModelProperty(notes = "Customer first name")
     private String firstName;
+
+    @ApiModelProperty(notes = "Customer last name")
     private String lastName;
+
     @Pattern(message = "Incorrect ID Card Number", regexp = "[A-Z]{3}[\\d]{6}")
+    @ApiModelProperty(notes = "ID card number of customer")
     private String idCardNumber;
+
     @Pattern(message = "Incorrect PESEL number", regexp = "[\\d]{11}")
+    @ApiModelProperty(notes = "PESEL number of customer")
     private String peselNumber;
 
     protected Customer() {

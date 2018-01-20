@@ -2,7 +2,11 @@ package com.PBachta.KomisApp.Entity;
 
 import com.PBachta.KomisApp.DataTypes.Maker;
 import com.PBachta.KomisApp.Validation.IsCorrectCar;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.sql.Date;
 
 
@@ -13,13 +17,26 @@ public class Car {
 
     @Id
     @GeneratedValue
+    @ApiModelProperty(notes = "Identification number")
     private Long id;
+
     @Enumerated
+    @ApiModelProperty(notes = "Car Manufacturer")
     private Maker maker;
+
+    @ApiModelProperty(notes = "Capacity of the engine")
     private Integer engineCapacity;
+
+    @ApiModelProperty(notes = "Number of seats")
     private Integer numberOfSeats;
+
+    @ApiModelProperty(notes = "Date of first registration")
     private Date firstRegistrationDate;
+
+    @ApiModelProperty(notes = "Date of issuing registartion card")
     private Date registrationCardIssueDate;
+
+    @ApiModelProperty(notes = "Car registration number")
     private String registrationNumber;
 
 
