@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
 
+
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
         configurer.favorPathExtension(true).
@@ -18,8 +19,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
                 ignoreAcceptHeader(false).
                 useJaf(false).
                 defaultContentType(MediaType.APPLICATION_JSON).
-                mediaType("xml", MediaType.APPLICATION_XML).
-                mediaType("json", MediaType.APPLICATION_JSON);
+                mediaType("json", MediaType.APPLICATION_JSON).
+                mediaType("xml", MediaType.APPLICATION_XML);
     }
 
     @Override

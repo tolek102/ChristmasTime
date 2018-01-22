@@ -28,10 +28,12 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 @Transactional
 public class CarControllerTest {
+
     private MockMvc mockMvc;
 
     @Mock
     private CarController carControllerMock;
+
 
     @Test
     public void getAllTest() throws Exception {
@@ -72,7 +74,7 @@ public class CarControllerTest {
         MockHttpServletResponse response = result.getResponse();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
-        String expected = "{id:1,maker:HONDA,engineCapacity:1589,numberOfSeats:5,firstRegistrationDate:1998-02-05,registrationCardIssueDate:1998-03-05,registrationNumber:AB1111}";
+        String expected = "{id: 1,maker: HONDA,engineCapacity: 1589,numberOfSeats: 5,firstRegistrationDate: 1998-02-05,registrationCardIssueDate: 1998-03-05,registrationNumber: AB1111}";
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 

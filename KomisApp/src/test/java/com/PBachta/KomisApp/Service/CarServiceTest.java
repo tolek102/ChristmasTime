@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import static org.junit.Assert.assertEquals;
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
@@ -19,7 +18,7 @@ public class CarServiceTest {
     @Autowired
     private CarServiceInteface carService;
 
-/*        data initialization is taken from package com.PBachta.KomisApp DataInitializer.dataInit()
+/*       data initialization is taken from package com.PBachta.KomisApp.DataInitialization DataInitializer.dataInit()
          this is adding 4 elements to database on program startup (@PostConstruct)
 
         [{"id":1,"maker":"Subaru","model":"Legacy","registrationNumber":"ZS85H55","vinNumber":"4S3BP616556397994"},

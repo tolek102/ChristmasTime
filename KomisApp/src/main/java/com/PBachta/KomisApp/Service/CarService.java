@@ -6,6 +6,7 @@ import com.PBachta.KomisApp.Repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +15,9 @@ import java.util.List;
 @ConditionalOnProperty(prefix = "", name = "H2_STORAGE_ENABLED", havingValue = "false", matchIfMissing = true)
 class CarService implements CarServiceInteface {
 
-
     @Autowired
     private CarRepository carRepository;
+
 
     public List<Car> getAll() {
         List<Car> carList = new ArrayList<>();
@@ -26,7 +27,7 @@ class CarService implements CarServiceInteface {
         }
 
         if (carList.size() == 0) {
-            throw new RuntimeException("There are no cars in database");
+            throw new IllegalArgumentException("There are no cars in database");
         }
         return carList;
     }
@@ -35,7 +36,7 @@ class CarService implements CarServiceInteface {
     public Car getById(Long id) {
         Car car = carRepository.findOne(id);
         if (car == null) {
-            throw new RuntimeException("Car with id " + id + " not found");
+            throw new IllegalArgumentException("Car with id " + id + " not found");
         }
         return car;
     }
@@ -49,7 +50,11 @@ class CarService implements CarServiceInteface {
 
 
     public List<Car> delete(Long id) {
-        carRepository.delete(id);
+        try {
+            carRepository.delete(id);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Car with id " + id + " not found");
+        }
         return getAll();
     }
 
@@ -57,7 +62,7 @@ class CarService implements CarServiceInteface {
     public Car put(Long id, Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber) {
         Car car = carRepository.findOne(id);
         if (car == null) {
-            throw new RuntimeException("Car with id " + id + " not found");
+            throw new IllegalArgumentException("Car with id " + id + " not found");
         }
 
         if (maker == null)
@@ -73,12 +78,9 @@ class CarService implements CarServiceInteface {
         if (registrationNumber == null)
             registrationNumber = car.getRegistrationNumber();
 
-        try {
-            Car updatedCar = new Car(id, maker, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber);
-            carRepository.save(updatedCar);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Car data for upload are incorrect. Please correct the data and try again");
-        }
+        Car updatedCar = new Car(id, maker, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber);
+        carRepository.saveAndFlush(updatedCar);
+
         return carRepository.findOne(id);
     }
 }

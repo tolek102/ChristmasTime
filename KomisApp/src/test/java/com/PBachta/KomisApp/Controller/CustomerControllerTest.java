@@ -32,6 +32,7 @@ public class CustomerControllerTest {
     @Mock
     private CustomerController customerControllerMock;
 
+
     @Test
     public void getAllTest() throws Exception {
         MockitoAnnotations.initMocks(this);

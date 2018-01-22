@@ -1,18 +1,19 @@
 package com.PBachta.KomisApp.Entity;
 
 import com.PBachta.KomisApp.DataTypes.Maker;
-import com.PBachta.KomisApp.Validation.IsCorrectCar;
-import io.swagger.annotations.Api;
+import com.PBachta.KomisApp.Validation.FirstRegistrationDate;
+import com.PBachta.KomisApp.Validation.RegistrationCardIssueDate;
+import com.PBachta.KomisApp.Validation.RegistrationNumber;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.sql.Date;
-
 
 @Entity
 @NamedQuery(name = "find_all_cars", query = "select c from Car c")
-@IsCorrectCar
+@RegistrationCardIssueDate
 public class Car {
 
     @Id
@@ -24,25 +25,30 @@ public class Car {
     @ApiModelProperty(notes = "Car Manufacturer")
     private Maker maker;
 
+    @Min(50)
+    @Max(6999)
     @ApiModelProperty(notes = "Capacity of the engine")
     private Integer engineCapacity;
 
+    @Min(1)
+    @Max(6)
     @ApiModelProperty(notes = "Number of seats")
     private Integer numberOfSeats;
 
+    @FirstRegistrationDate
     @ApiModelProperty(notes = "Date of first registration")
     private Date firstRegistrationDate;
 
     @ApiModelProperty(notes = "Date of issuing registartion card")
     private Date registrationCardIssueDate;
 
+    @RegistrationNumber
     @ApiModelProperty(notes = "Car registration number")
     private String registrationNumber;
 
 
     protected Car() {
     }
-
 
     public Car(Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber) {
         this.maker = maker;

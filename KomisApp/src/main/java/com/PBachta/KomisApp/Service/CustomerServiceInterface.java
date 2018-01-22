@@ -1,6 +1,7 @@
 package com.PBachta.KomisApp.Service;
 
 import com.PBachta.KomisApp.Entity.Customer;
+
 import java.util.List;
 
 public interface CustomerServiceInterface {

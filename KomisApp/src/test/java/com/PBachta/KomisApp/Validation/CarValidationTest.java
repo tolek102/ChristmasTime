@@ -12,9 +12,10 @@ import java.sql.Date;
 import java.util.Set;
 import static org.junit.Assert.assertFalse;
 
-public class IsCorrectCarValidatorTest {
+public class CarValidationTest {
 
     private static Validator validator;
+
     Car car = new Car(Maker.HONDA, 1589, 5, new Date(98, 1, 5), new Date(98, 2, 5), "AB1111");
 
     @Before
@@ -35,7 +36,6 @@ public class IsCorrectCarValidatorTest {
         assertFalse("engineCapacityIsValidTest failed", violations1.isEmpty());
     }
 
-
     @Test
     public void numberOfSeatsIsValidTest() {
         car.setNumberOfSeats(0);
@@ -46,7 +46,6 @@ public class IsCorrectCarValidatorTest {
         Set<ConstraintViolation<Car>> violations1 = validator.validate(car);
         assertFalse("numberOfSeatsIsValidTest failed", violations1.isEmpty());
     }
-
 
     @Test
     public void firstRegistrationDateIsValidTest() {
@@ -60,7 +59,6 @@ public class IsCorrectCarValidatorTest {
         System.out.println(car.getEngineCapacity());
     }
 
-
     @Test
     public void registrationCardIssueDateIsValidTest() {
         car.setRegistrationCardIssueDate(new Date(98, 1, 1));
@@ -72,7 +70,6 @@ public class IsCorrectCarValidatorTest {
         Set<ConstraintViolation<Car>> violations1 = validator.validate(car);
         assertFalse("registrationCardIssueDateIsValidTest failed", violations1.isEmpty());
     }
-
 
     @Test
     public void registrationNumberIsValidTest() {

@@ -78,8 +78,6 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
-
-
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
@@ -107,6 +105,5 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<url>https://repo.spring.io/libs-release</url>
 		</pluginRepository>
 	</pluginRepositories>
-
 
 </project>

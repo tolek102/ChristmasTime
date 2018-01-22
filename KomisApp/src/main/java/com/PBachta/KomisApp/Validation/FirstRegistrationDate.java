@@ -5,12 +5,12 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 @Documented
-@Constraint(validatedBy = RegistrationNumberValidator.class)
+@Constraint(validatedBy = FirstRegistrationDateValidator.class)
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RegistrationNumber {
+public @interface FirstRegistrationDate {
 
-    String message() default "{Registration Number is incorrect}";
+    String message() default "{FirstRegistrationDate is incorrect}";
 
     Class<?>[] groups() default {};
 

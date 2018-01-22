@@ -1,5 +1,6 @@
 package com.PBachta.KomisApp.Service;
 
+import com.PBachta.KomisApp.Entity.Customer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,14 @@ public class CustomerServiceTest {
     @Autowired
     private CustomerService customerService;
 
-//         data initialization is taken from package com.PBachta.KomisApp DataInitializer.dataInit()
-//         this is adding 4 elements to database on program startup (@PostConstruct)
-//
-//        [{"id":1,"firstName":"Jan","lastName":"Kowalski","idCardNumber":"NHW399139","peselNumber":"43062460106"},
-//        {"id":2,"firstName":"Adam","lastName":"Nowak","idCardNumber":"KQL847332","peselNumber":"07240779183"},
-//        {"id":3,"firstName":"Zygfryd","lastName":"Kopytko","idCardNumber":"EIS182302","peselNumber":"79121576859"},
-//        {"id":4,"firstName":"Andrzej","lastName":"Zawada","idCardNumber":"EXY304697","peselNumber":"65020522882"}]
+/*       data initialization is taken from package com.PBachta.KomisApp.DataInitialization DataInitializer.dataInit()
+         this is adding 4 elements to database on program startup (@PostConstruct)
+
+        [{"id":1,"firstName":"Jan","lastName":"Kowalski","idCardNumber":"NHW399139","peselNumber":"43062460106"},
+        {"id":2,"firstName":"Adam","lastName":"Nowak","idCardNumber":"KQL847332","peselNumber":"07240779183"},
+        {"id":3,"firstName":"Zygfryd","lastName":"Kopytko","idCardNumber":"EIS182302","peselNumber":"79121576859"},
+        {"id":4,"firstName":"Andrzej","lastName":"Zawada","idCardNumber":"EXY304697","peselNumber":"65020522882"}]
+*/
 
     @Test
     public void getAllTest() {

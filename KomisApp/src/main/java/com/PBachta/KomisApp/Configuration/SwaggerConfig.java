@@ -18,7 +18,6 @@ import static com.google.common.collect.Lists.newArrayList;
 
 @Configuration
 @EnableSwagger2
-
 public class SwaggerConfig {
 
 
@@ -39,18 +38,16 @@ public class SwaggerConfig {
                                         .code(404).message("Requested resource not found").build(),
                                 new ResponseMessageBuilder()
                                         .code(500).message("Internal server error").build()))
-
                 .globalResponseMessage(RequestMethod.POST,
                         newArrayList(
                                 new ResponseMessageBuilder()
                                         .code(201).message("Resource created successfully").build(),
                                 new ResponseMessageBuilder()
+                                        .code(400).message("Inputted data validation error").build(),
+                                new ResponseMessageBuilder()
                                         .code(404).message("Requested resource not found").build(),
                                 new ResponseMessageBuilder()
-                                        .code(405).message("Inputted data validation error").build(),
-                                new ResponseMessageBuilder()
                                         .code(500).message("Internal server error").build()))
-
                 .globalResponseMessage(RequestMethod.DELETE,
                         newArrayList(
                                 new ResponseMessageBuilder()
@@ -59,15 +56,14 @@ public class SwaggerConfig {
                                         .code(404).message("Requested resource not found").build(),
                                 new ResponseMessageBuilder()
                                         .code(500).message("Internal server error").build()))
-
                 .globalResponseMessage(RequestMethod.PUT,
                         newArrayList(
                                 new ResponseMessageBuilder()
                                         .code(200).message("Resource updated successfully").build(),
                                 new ResponseMessageBuilder()
-                                        .code(404).message("Requested resource not found").build(),
+                                        .code(400).message("Inputted data validation error").build(),
                                 new ResponseMessageBuilder()
-                                        .code(405).message("Inputted data validation error").build(),
+                                        .code(404).message("Requested resource not found").build(),
                                 new ResponseMessageBuilder()
                                         .code(500).message("Internal server error").build()));
     }

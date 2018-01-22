@@ -12,5 +12,4 @@ public class KomisAppApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }
