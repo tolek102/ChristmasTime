@@ -16,7 +16,8 @@ public class CustomerValiationTest {
 
     private static Validator validator;
 
-    Customer customer = new Customer("Jan", "Kowalski", "NHW399139", "43062460106");
+    Customer customer = new Customer("Jan", "Kowalski",
+                                    "NHW399139", "43062460106");
 
     @Before
     public void setUp() throws Exception {

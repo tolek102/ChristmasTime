@@ -31,7 +31,10 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
   // 400
 
   @Override
-  protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
+  protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex,
+                                                                final HttpHeaders headers,
+                                                                final HttpStatus status,
+                                                                final WebRequest request) {
     logger.info(ex.getClass().getName());
 
     final List<String> errors = new ArrayList<String>();
@@ -41,12 +44,18 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     for (final ObjectError error : ex.getBindingResult().getGlobalErrors()) {
       errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
     }
-    final ApiError apiError = new ApiError("400", HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
+    final ApiError apiError = new ApiError("400",
+                                            HttpStatus.BAD_REQUEST,
+                                            ex.getLocalizedMessage(),
+                                            errors);
     return handleExceptionInternal(ex, apiError, headers, apiError.getStatus(), request);
   }
 
   @Override
-  protected ResponseEntity<Object> handleBindException(final BindException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
+  protected ResponseEntity<Object> handleBindException(final BindException ex,
+                                                       final HttpHeaders headers,
+                                                       final HttpStatus status,
+                                                       final WebRequest request) {
     logger.info(ex.getClass().getName());
 
     final List<String> errors = new ArrayList<String>();
@@ -56,87 +65,131 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     for (final ObjectError error : ex.getBindingResult().getGlobalErrors()) {
       errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
     }
-    final ApiError apiError = new ApiError("400", HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
+    final ApiError apiError = new ApiError("400",
+                                            HttpStatus.BAD_REQUEST,
+                                            ex.getLocalizedMessage(),
+                                            errors);
     return handleExceptionInternal(ex, apiError, headers, apiError.getStatus(), request);
   }
 
   @Override
-  protected ResponseEntity<Object> handleTypeMismatch(final TypeMismatchException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
+  protected ResponseEntity<Object> handleTypeMismatch(final TypeMismatchException ex,
+                                                      final HttpHeaders headers,
+                                                      final HttpStatus status,
+                                                      final WebRequest request) {
     logger.info(ex.getClass().getName());
 
-    final String error = ex.getValue() + " value for " + ex.getPropertyName() + " should be of type " + ex.getRequiredType();
+    final String error = ex.getValue() + " value for " +
+                         ex.getPropertyName() + " should be of type " +
+                         ex.getRequiredType();
 
-    final ApiError apiError = new ApiError("400", HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), error);
+    final ApiError apiError = new ApiError("400",
+                                            HttpStatus.BAD_REQUEST,
+                                            ex.getLocalizedMessage(),
+                                            error);
     return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
   }
 
   @Override
-  protected ResponseEntity<Object> handleMissingServletRequestPart(final MissingServletRequestPartException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
+  protected ResponseEntity<Object> handleMissingServletRequestPart(final MissingServletRequestPartException ex,
+                                                                   final HttpHeaders headers,
+                                                                   final HttpStatus status,
+                                                                   final WebRequest request) {
     logger.info(ex.getClass().getName());
 
     final String error = ex.getRequestPartName() + " part is missing";
-    final ApiError apiError = new ApiError("400", HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), error);
+    final ApiError apiError = new ApiError("400",
+                                            HttpStatus.BAD_REQUEST,
+                                            ex.getLocalizedMessage(),
+                                            error);
     return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
   }
 
   @Override
-  protected ResponseEntity<Object> handleMissingServletRequestParameter(final MissingServletRequestParameterException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
+  protected ResponseEntity<Object> handleMissingServletRequestParameter(final MissingServletRequestParameterException ex,
+                                                                        final HttpHeaders headers,
+                                                                        final HttpStatus status,
+                                                                        final WebRequest request) {
     logger.info(ex.getClass().getName());
 
     final String error = ex.getParameterName() + " parameter is missing";
-    final ApiError apiError = new ApiError("400", HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), error);
+    final ApiError apiError = new ApiError("400",
+                                            HttpStatus.BAD_REQUEST,
+                                            ex.getLocalizedMessage(),
+                                            error);
     return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
   }
 
   //
 
   @ExceptionHandler({MethodArgumentTypeMismatchException.class})
-  public ResponseEntity<Object> handleMethodArgumentTypeMismatch(final MethodArgumentTypeMismatchException ex, final WebRequest request) {
+  public ResponseEntity<Object> handleMethodArgumentTypeMismatch(final MethodArgumentTypeMismatchException ex,
+                                                                 final WebRequest request) {
     logger.info(ex.getClass().getName());
 
     final String error = ex.getName() + " should be of type " + ex.getRequiredType().getName();
 
-    final ApiError apiError = new ApiError("400", HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), error);
+    final ApiError apiError = new ApiError("400",
+                                            HttpStatus.BAD_REQUEST,
+                                            ex.getLocalizedMessage(),
+                                            error);
     return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
   }
 
   @ExceptionHandler({ConstraintViolationException.class})
-  public ResponseEntity<Object> handleConstraintViolation(final ConstraintViolationException ex, final WebRequest request) {
+  public ResponseEntity<Object> handleConstraintViolation(final ConstraintViolationException ex,
+                                                          final WebRequest request) {
     logger.info(ex.getClass().getName());
 
     final List<String> errors = new ArrayList<String>();
     for (final ConstraintViolation<?> violation : ex.getConstraintViolations()) {
       errors.add(violation.getPropertyPath() + ": " + violation.getMessage());
-      //errors.add(violation.getRootBeanClass().getName() + " " + violation.getPropertyPath() + ": " + violation.getMessage());
     }
-    final ApiError apiError = new ApiError("400", HttpStatus.BAD_REQUEST, "validation Error! Correct the data and try again", errors);
+    final ApiError apiError = new ApiError("400",
+                                            HttpStatus.BAD_REQUEST,
+                                            "Validation Error! Correct the data and try again",
+                                            errors);
     return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
   }
 
   // 404
 
   @Override
-  protected ResponseEntity<Object> handleNoHandlerFoundException(final NoHandlerFoundException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
+  protected ResponseEntity<Object> handleNoHandlerFoundException(final NoHandlerFoundException ex,
+                                                                 final HttpHeaders headers,
+                                                                 final HttpStatus status,
+                                                                 final WebRequest request) {
     logger.info(ex.getClass().getName());
 
     final String error = "No handler found for " + ex.getHttpMethod() + " " + ex.getRequestURL();
 
-    final ApiError apiError = new ApiError("404", HttpStatus.NOT_FOUND, ex.getLocalizedMessage(), error);
+    final ApiError apiError = new ApiError("404",
+                                            HttpStatus.NOT_FOUND,
+                                            ex.getLocalizedMessage(),
+                                            error);
     return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
   }
 
   @ExceptionHandler
-  public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex, HttpServletResponse response) throws IOException {
+  public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex,
+                                                               HttpServletResponse response)
+                                throws IOException {
     logger.info(ex.getClass().getName());
 
-    final ApiError apiError = new ApiError("404", HttpStatus.NOT_FOUND, ex.getLocalizedMessage(), "Resource not found. Correct Your request and try again");
+    final ApiError apiError = new ApiError("404",
+                                            HttpStatus.NOT_FOUND,
+                                            ex.getLocalizedMessage(),
+                                            "Resource not found. Correct Your request and try again");
     return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
   }
 
   // 405
 
   @Override
-  protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(final HttpRequestMethodNotSupportedException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
+  protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(final HttpRequestMethodNotSupportedException ex,
+                                                                       final HttpHeaders headers,
+                                                                       final HttpStatus status,
+                                                                       final WebRequest request) {
     logger.info(ex.getClass().getName());
 
     final StringBuilder builder = new StringBuilder();
@@ -144,7 +197,10 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     builder.append(" method is not supported for this request. Supported methods are ");
     ex.getSupportedHttpMethods().forEach(t -> builder.append(t + " "));
 
-    final ApiError apiError = new ApiError("405", HttpStatus.METHOD_NOT_ALLOWED, ex.getLocalizedMessage(), builder.toString());
+    final ApiError apiError = new ApiError("405",
+                                            HttpStatus.METHOD_NOT_ALLOWED,
+                                            ex.getLocalizedMessage(),
+                                            builder.toString());
     return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
   }
 
@@ -155,7 +211,10 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     logger.info(ex.getClass().getName());
     logger.error("error", ex);
 
-    final ApiError apiError = new ApiError("500", HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage(), "Internal error occurred");
+    final ApiError apiError = new ApiError("500",
+                                            HttpStatus.INTERNAL_SERVER_ERROR,
+                                            ex.getLocalizedMessage(),
+                                            "Internal error occurred");
     return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
   }
 }

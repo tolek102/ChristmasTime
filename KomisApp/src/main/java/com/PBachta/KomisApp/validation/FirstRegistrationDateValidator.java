@@ -12,11 +12,13 @@ public class FirstRegistrationDateValidator implements ConstraintValidator<First
   }
 
   @Override
-  public boolean isValid(Date firstRegistrationDateField, ConstraintValidatorContext context) {
+  public boolean isValid(Date firstRegistrationDateField,
+                         ConstraintValidatorContext context) {
     Calendar currentTime = Calendar.getInstance();
     Date today = new Date((currentTime.getTime()).getTime());
 
-    if (firstRegistrationDateField.before(new Date(0, 01, 01)) || firstRegistrationDateField.after(today)) {
+    if (firstRegistrationDateField.before(new Date(0, 01, 01))
+                                          || firstRegistrationDateField.after(today)) {
       addMessage("First Registration Date is incorrect, acceptable values from 1900-01-01 till today", context);
       return false;
     }

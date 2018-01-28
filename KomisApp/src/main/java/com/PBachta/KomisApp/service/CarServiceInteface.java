@@ -12,11 +12,13 @@ public interface CarServiceInteface {
 
   Car getById(Long id);
 
-  Car post(Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate,
-           Date registrationCardIssueDate, String registrationNumber);
+  Car post(Maker maker, Integer engineCapacity, Integer numberOfSeats,
+           Date firstRegistrationDate, Date registrationCardIssueDate,
+           String registrationNumber);
 
   List<Car> delete(Long id);
 
   Car put(Long id, Maker maker, Integer engineCapacity, Integer numberOfSeats,
-          Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber);
+          Date firstRegistrationDate, Date registrationCardIssueDate,
+          String registrationNumber);
 }

@@ -37,14 +37,16 @@ public class Customer {
   protected Customer() {
   }
 
-  public Customer(String firstName, String lastName, String idCardNumber, String peselNumber) {
+  public Customer(String firstName, String lastName,
+                  String idCardNumber, String peselNumber) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.idCardNumber = idCardNumber;
     this.peselNumber = peselNumber;
   }
 
-  public Customer(Long id, String firstName, String lastName, String idCardNumber, String peselNumber) {
+  public Customer(Long id, String firstName, String lastName,
+                  String idCardNumber, String peselNumber) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;

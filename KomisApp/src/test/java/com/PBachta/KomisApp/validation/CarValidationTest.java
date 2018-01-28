@@ -16,7 +16,10 @@ public class CarValidationTest {
 
     private static Validator validator;
 
-    Car car = new Car(Maker.HONDA, 1589, 5, new Date(98, 1, 5), new Date(98, 2, 5), "AB1111");
+    Car car = new Car(Maker.HONDA, 1589, 5,
+                      new Date(98, 1, 5),
+                      new Date(98, 2, 5),
+                     "AB1111");
 
     @Before
     public void setUp() throws Exception {

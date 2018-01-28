@@ -34,7 +34,7 @@ paths:
         '404':
           description: Requested resource not found
         '500':
-          description: Internal server error
+          description: Internal server message
     post:
       tags:
         - Car API
@@ -92,11 +92,11 @@ paths:
         '201':
           description: Resource created successfully
         '400':
-          description: Inputted data validation error
+          description: Inputted data validation message
         '404':
           description: Requested resource not found
         '500':
-          description: Internal server error
+          description: Internal server message
   '/car/{id}':
     get:
       tags:
@@ -123,7 +123,7 @@ paths:
         '404':
           description: Requested resource not found
         '500':
-          description: Internal server error
+          description: Internal server message
     put:
       tags:
         - Car API
@@ -185,11 +185,11 @@ paths:
           schema:
             $ref: '#/definitions/Car'
         '400':
-          description: Inputted data validation error
+          description: Inputted data validation message
         '404':
           description: Requested resource not found
         '500':
-          description: Internal server error
+          description: Internal server message
     delete:
       tags:
         - Car API
@@ -215,7 +215,7 @@ paths:
         '404':
           description: Requested resource not found
         '500':
-          description: Internal server error
+          description: Internal server message
   /customer:
     get:
       tags:
@@ -235,7 +235,7 @@ paths:
         '404':
           description: Requested resource not found
         '500':
-          description: Internal server error
+          description: Internal server message
     post:
       tags:
         - Customer API
@@ -275,11 +275,11 @@ paths:
         '201':
           description: Resource created successfully
         '400':
-          description: Inputted data validation error
+          description: Inputted data validation message
         '404':
           description: Requested resource not found
         '500':
-          description: Internal server error
+          description: Internal server message
   '/customer/firstName={firstName}':
     get:
       tags:
@@ -305,7 +305,7 @@ paths:
         '404':
           description: Requested resource not found
         '500':
-          description: Internal server error
+          description: Internal server message
   '/customer/idCardNumber={idCardNumber}':
     get:
       tags:
@@ -331,7 +331,7 @@ paths:
         '404':
           description: Requested resource not found
         '500':
-          description: Internal server error
+          description: Internal server message
   '/customer/lastName={lastName}':
     get:
       tags:
@@ -357,7 +357,7 @@ paths:
         '404':
           description: Requested resource not found
         '500':
-          description: Internal server error
+          description: Internal server message
   '/customer/peselNumber={peselNumber}':
     get:
       tags:
@@ -383,7 +383,7 @@ paths:
         '404':
           description: Requested resource not found
         '500':
-          description: Internal server error
+          description: Internal server message
   '/customer/{id}':
     get:
       tags:
@@ -410,7 +410,7 @@ paths:
         '404':
           description: Requested resource not found
         '500':
-          description: Internal server error
+          description: Internal server message
     put:
       tags:
         - Customer API
@@ -454,11 +454,11 @@ paths:
           schema:
             $ref: '#/definitions/Customer'
         '400':
-          description: Inputted data validation error
+          description: Inputted data validation message
         '404':
           description: Requested resource not found
         '500':
-          description: Internal server error
+          description: Internal server message
     delete:
       tags:
         - Customer API
@@ -484,7 +484,7 @@ paths:
         '404':
           description: Requested resource not found
         '500':
-          description: Internal server error
+          description: Internal server message
 definitions:
   Car:
     type: object

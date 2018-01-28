@@ -50,8 +50,9 @@ public class Car {
   protected Car() {
   }
 
-  public Car(Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate,
-             Date registrationCardIssueDate, String registrationNumber) {
+  public Car(Maker maker, Integer engineCapacity, Integer numberOfSeats,
+             Date firstRegistrationDate, Date registrationCardIssueDate,
+             String registrationNumber) {
     this.maker = maker;
     this.engineCapacity = engineCapacity;
     this.numberOfSeats = numberOfSeats;
@@ -61,7 +62,8 @@ public class Car {
   }
 
   public Car(Long id, Maker maker, Integer engineCapacity, Integer numberOfSeats,
-             Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber) {
+             Date firstRegistrationDate, Date registrationCardIssueDate,
+             String registrationNumber) {
     this.id = id;
     this.maker = maker;
     this.engineCapacity = engineCapacity;

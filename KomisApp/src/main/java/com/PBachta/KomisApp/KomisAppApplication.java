@@ -13,6 +13,7 @@ public class KomisAppApplication {
     SpringApplication.run(KomisAppApplication.class, args);
 
     final Logger log = LoggerFactory.getLogger(KomisAppApplication.class);
-    log.info((char) 27 + "[46m To open Swagger documentation please go to:"+ (char) 27 + "[0m" +" http://localhost:8080/swagger-ui.html" );
+    log.info((char) 27 + "[46m To open Swagger documentation please go to:"+
+             (char) 27 + "[0m" +" http://localhost:8080/swagger-ui.html" );
   }
 }

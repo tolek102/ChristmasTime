@@ -39,20 +39,26 @@ public class CustomerControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(customerControllerMock).build();
 
         List<Customer> customerList = Arrays.asList(
-                new Customer(1L, "Jan", "Kowalski", "NHW399139", "43062460106"),
-                new Customer(2L, "Adam", "Nowak", "KQL847332", "07240779183")
+                new Customer(1L, "Jan", "Kowalski",
+                            "NHW399139", "43062460106"),
+                new Customer(2L, "Adam", "Nowak",
+                            "KQL847332", "07240779183")
         );
 
         Mockito.when(customerControllerMock.getAllCustomers()).thenReturn(customerList);
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/customer").accept(MediaType.APPLICATION_JSON);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                                            .get("/customer")
+                                            .accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
-        String expected = "[{id: 1,firstName: Jan,lastName: Kowalski,idCardNumber: NHW399139,peselNumber: '43062460106'}," +
-                "{id: 2,firstName: Adam,lastName: Nowak,idCardNumber: KQL847332,peselNumber: '07240779183'}]";
+        String expected = "[{id: 1,firstName: Jan,lastName: Kowalski," +
+                            "idCardNumber: NHW399139,peselNumber: '43062460106'}," +
+                            "{id: 2,firstName: Adam,lastName: Nowak," +
+                            "idCardNumber: KQL847332,peselNumber: '07240779183'}]";
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
@@ -61,17 +67,21 @@ public class CustomerControllerTest {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(customerControllerMock).build();
 
-        Customer customer = (new Customer(1L, "Jan", "Kowalski", "NHW399139", "43062460106"));
+        Customer customer = (new Customer(1L, "Jan", "Kowalski",
+                                        "NHW399139", "43062460106"));
 
         Mockito.when(customerControllerMock.getCustomerById(1L)).thenReturn(customer);
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/customer/1").accept(MediaType.APPLICATION_JSON);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                                            .get("/customer/1")
+                                            .accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
-        String expected = "{id: 1,firstName: Jan,lastName: Kowalski, idCardNumber: NHW399139,peselNumber: '43062460106'}";
+        String expected = "{id: 1,firstName: Jan,lastName: Kowalski, " +
+                            "idCardNumber: NHW399139,peselNumber: '43062460106'}";
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
@@ -80,17 +90,25 @@ public class CustomerControllerTest {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(customerControllerMock).build();
 
-        Customer customer = (new Customer(1L, "Jan", "Kowalski", "NHW399139", "43062460106"));
+        Customer customer = (new Customer(1L, "Jan", "Kowalski",
+                                        "NHW399139", "43062460106"));
 
-        Mockito.when(customerControllerMock.postNewCustomer("Jan", "Kowalski", "NHW399139", "43062460106")).thenReturn(customer);
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/customer?firstName=Jan&lastName=Kowalski&idCardNumber=NHW399139&peselNumber=43062460106").accept(MediaType.APPLICATION_JSON);
+        Mockito.when(customerControllerMock
+                        .postNewCustomer("Jan", "Kowalski",
+                                        "NHW399139", "43062460106"))
+                        .thenReturn(customer);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                                            .post("/customer?firstName=Jan&lastName=Kowalski" +
+                                                    "&idCardNumber=NHW399139&peselNumber=43062460106")
+                                            .accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
-        String expected = "{id: 1,firstName: Jan,lastName: Kowalski, idCardNumber: NHW399139,peselNumber: '43062460106'}";
+        String expected = "{id: 1,firstName: Jan,lastName: Kowalski, " +
+                            "idCardNumber: NHW399139,peselNumber: '43062460106'}";
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
@@ -100,18 +118,22 @@ public class CustomerControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(customerControllerMock).build();
 
         List<Customer> customerList = Arrays.asList(
-                new Customer(1L, "Jan", "Kowalski", "NHW399139", "43062460106")
+                new Customer(1L, "Jan", "Kowalski",
+                            "NHW399139", "43062460106")
         );
 
         Mockito.when(customerControllerMock.deleteCustomer(2L)).thenReturn(customerList);
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/customer/2").accept(MediaType.APPLICATION_JSON);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                                            .delete("/customer/2")
+                                            .accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
-        String expected = "[{id: 1,firstName: Jan,lastName: Kowalski, idCardNumber: NHW399139,peselNumber: '43062460106'}]";
+        String expected = "[{id: 1,firstName: Jan,lastName: Kowalski, " +
+                            "idCardNumber: NHW399139,peselNumber: '43062460106'}]";
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
@@ -120,17 +142,25 @@ public class CustomerControllerTest {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(customerControllerMock).build();
 
-        Customer customer = (new Customer(1L, "Jan", "Kowalski", "KQL847332", "07240779183"));
+        Customer customer = (new Customer(1L, "Jan", "Kowalski",
+                                        "KQL847332", "07240779183"));
 
-        Mockito.when(customerControllerMock.putNewCustomerData(1L, null, null, "KQL847332", "07240779183")).thenReturn(customer);
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/customer/1?idCardNumber=KQL847332&peselNumber=07240779183").accept(MediaType.APPLICATION_JSON);
+        Mockito.when(customerControllerMock
+                        .putNewCustomerData(1L, null, null,
+                                            "KQL847332", "07240779183"))
+                        .thenReturn(customer);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                                            .put("/customer/1?idCardNumber=KQL847332" +
+                                                    "&peselNumber=07240779183")
+                                            .accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
-        String expected = "{id: 1,firstName: Jan,lastName: Kowalski, idCardNumber: KQL847332,peselNumber: '07240779183'}";
+        String expected = "{id: 1,firstName: Jan,lastName: Kowalski, " +
+                            "idCardNumber: KQL847332,peselNumber: '07240779183'}";
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 }

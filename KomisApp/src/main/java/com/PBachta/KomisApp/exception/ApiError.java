@@ -17,7 +17,8 @@ public class ApiError {
     super();
   }
 
-  public ApiError(final String statusCode, final HttpStatus status, final String message, final List<String> errors) {
+  public ApiError(final String statusCode, final HttpStatus status,
+                  final String message, final List<String> errors) {
     super();
     this.statusCode = statusCode;
     this.status = status;
@@ -25,7 +26,8 @@ public class ApiError {
     this.errors = errors;
   }
 
-  public ApiError(final String statusCode, final HttpStatus status, final String message, final String error) {
+  public ApiError(final String statusCode, final HttpStatus status,
+                  final String message, final String error) {
     super();
     this.statusCode = statusCode;
     this.status = status;

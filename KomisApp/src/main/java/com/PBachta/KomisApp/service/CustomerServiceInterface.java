@@ -10,11 +10,13 @@ public interface CustomerServiceInterface {
 
   Customer getById(Long id);
 
-  Customer post(String firstName, String lastName, String idCardNumber, String peselNumber);
+  Customer post(String firstName, String lastName,
+                String idCardNumber, String peselNumber);
 
   List<Customer> delete(Long id);
 
-  Customer put(Long id, String firstName, String lastName, String idCardNumber, String peselNumber);
+  Customer put(Long id, String firstName, String lastName,
+               String idCardNumber, String peselNumber);
 
   List<Customer> getByFirstName(String firstName);
 

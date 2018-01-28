@@ -37,8 +37,10 @@ class CustomerService implements CustomerServiceInterface {
   }
 
 
-  public Customer post(String firstName, String lastName, String idCardNumber, String peselNumber) {
-    Customer customer = new Customer(firstName, lastName, idCardNumber, peselNumber);
+  public Customer post(String firstName, String lastName,
+                       String idCardNumber, String peselNumber) {
+    Customer customer = new Customer(firstName, lastName,
+                                     idCardNumber, peselNumber);
     customerRepository.save(customer);
     return customer;
   }
@@ -54,7 +56,8 @@ class CustomerService implements CustomerServiceInterface {
   }
 
 
-  public Customer put(Long id, String firstName, String lastName, String idCardNumber, String peselNumber) {
+  public Customer put(Long id, String firstName, String lastName,
+                      String idCardNumber, String peselNumber) {
     Customer customer = customerRepository.findOne(id);
     if (customer == null) {
       throw new IllegalArgumentException("Customer with id " + id + " not found");
@@ -69,7 +72,8 @@ class CustomerService implements CustomerServiceInterface {
     if (peselNumber == null)
       peselNumber = customer.getPeselNumber();
 
-    Customer updatedCustomer = new Customer(id, firstName, lastName, idCardNumber, peselNumber);
+    Customer updatedCustomer = new Customer(id, firstName, lastName,
+                                            idCardNumber, peselNumber);
     customerRepository.saveAndFlush(updatedCustomer);
 
     return customerRepository.findOne(id);
@@ -80,7 +84,8 @@ class CustomerService implements CustomerServiceInterface {
 
   public List<Customer> getByFirstName(String firstName) {
     List<Customer> customerList = new ArrayList<>();
-    for (Customer customer : customerRepository.findByFirstName(firstName)) {
+    for (Customer customer : customerRepository
+                                .findByFirstName(firstName)) {
       customerList.add(customer);
     }
 
@@ -93,7 +98,8 @@ class CustomerService implements CustomerServiceInterface {
 
   public List<Customer> getByLastName(String lastName) {
     List<Customer> customerList = new ArrayList<>();
-    for (Customer customer : customerRepository.findByLastName(lastName)) {
+    for (Customer customer : customerRepository
+                                .findByLastName(lastName)) {
       customerList.add(customer);
     }
 
@@ -105,7 +111,8 @@ class CustomerService implements CustomerServiceInterface {
 
 
   public Customer getByIdCardNumber(String idCardNumber) {
-    Customer customer = customerRepository.findByIdCardNumber(idCardNumber);
+    Customer customer = customerRepository
+                            .findByIdCardNumber(idCardNumber);
     if (customer == null) {
       throw new IllegalArgumentException("Customer with ID Card number " + idCardNumber + " not found");
     }
@@ -114,7 +121,8 @@ class CustomerService implements CustomerServiceInterface {
 
 
   public Customer getByIdPeselNumber(String peselNumber) {
-    Customer customer = customerRepository.findByPeselNumber(peselNumber);
+    Customer customer = customerRepository
+                            .findByPeselNumber(peselNumber);
     if (customer == null) {
       throw new IllegalArgumentException("Customer with PESEL number " + peselNumber + " not found");
     }

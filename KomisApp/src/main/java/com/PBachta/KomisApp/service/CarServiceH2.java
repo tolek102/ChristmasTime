@@ -43,8 +43,9 @@ class CarServiceH2 implements CarServiceInteface {
 
 
   @Override
-  public Car post(Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate,
-                  Date registrationCardIssueDate, String registrationNumber) {
+  public Car post(Maker maker, Integer engineCapacity, Integer numberOfSeats,
+                  Date firstRegistrationDate, Date registrationCardIssueDate,
+                  String registrationNumber) {
 
     Car car = new Car(maker, engineCapacity, numberOfSeats, firstRegistrationDate,
         registrationCardIssueDate, registrationNumber);
@@ -66,7 +67,8 @@ class CarServiceH2 implements CarServiceInteface {
 
   @Override
   public Car put(Long id, Maker maker, Integer engineCapacity, Integer numberOfSeats,
-                 Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber) {
+                 Date firstRegistrationDate, Date registrationCardIssueDate,
+                 String registrationNumber) {
 
     Car entryCar = getById(id);
     if (entryCar == null) {

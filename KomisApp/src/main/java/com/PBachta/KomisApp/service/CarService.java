@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@ConditionalOnProperty(prefix = "", name = "H2_STORAGE_ENABLED", havingValue = "false", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "", name = "H2_STORAGE_ENABLED",
+                       havingValue = "false", matchIfMissing = true)
 class CarService implements CarServiceInteface {
 
   @Autowired
@@ -42,11 +43,13 @@ class CarService implements CarServiceInteface {
   }
 
 
-  public Car post(Maker maker, Integer engineCapacity, Integer numberOfSeats, Date firstRegistrationDate,
-                  Date registrationCardIssueDate, String registrationNumber) {
+  public Car post(Maker maker, Integer engineCapacity, Integer numberOfSeats,
+                  Date firstRegistrationDate, Date registrationCardIssueDate,
+                  String registrationNumber) {
 
-    Car car = new Car(maker, engineCapacity, numberOfSeats, firstRegistrationDate,
-        registrationCardIssueDate, registrationNumber);
+    Car car = new Car(maker, engineCapacity, numberOfSeats,
+                      firstRegistrationDate, registrationCardIssueDate,
+                      registrationNumber);
     carRepository.save(car);
     return car;
   }
@@ -63,7 +66,8 @@ class CarService implements CarServiceInteface {
 
 
   public Car put(Long id, Maker maker, Integer engineCapacity, Integer numberOfSeats,
-                 Date firstRegistrationDate, Date registrationCardIssueDate, String registrationNumber) {
+                 Date firstRegistrationDate, Date registrationCardIssueDate,
+                 String registrationNumber) {
     Car car = carRepository.findOne(id);
     if (car == null) {
       throw new IllegalArgumentException("Car with id " + id + " not found");
@@ -82,8 +86,9 @@ class CarService implements CarServiceInteface {
     if (registrationNumber == null)
       registrationNumber = car.getRegistrationNumber();
 
-    Car updatedCar = new Car(id, maker, engineCapacity, numberOfSeats, firstRegistrationDate,
-        registrationCardIssueDate, registrationNumber);
+    Car updatedCar = new Car(id, maker, engineCapacity, numberOfSeats,
+                             firstRegistrationDate, registrationCardIssueDate,
+                             registrationNumber);
 
     carRepository.saveAndFlush(updatedCar);
 
