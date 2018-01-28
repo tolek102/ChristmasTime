@@ -18,50 +18,58 @@ Do uruchomienia wymagane są:
 - Postman
 
 Kroki: <br />
+
 W InteliJ importujemy projekt <br />
 wykonujemy polecenia: 
 - mvn clean install <br />
 
 Wybieramy Run -> Run KomisAppAplication <br />
-W postmanie generujemy zapytania na podstawie poniższych danych
+Do generacji zapytań korzystamy ze Swagger2 lub generujemy zapytania w postmanie na podstawie poniższych danych 
 
-##Implementacja
+## Implementacja
 
-W programie zawarte sa 2 implementcaje (obie bazują na H2 gdyż moje pierwsze zadanie bazowało już na H2)<br />
+W programie zawarte sa 2 implementcaje CarService (obie bazują na H2 gdyż moje pierwsze zadanie bazowało już na H2)<br />
 Aby przełączać się między implementacjami należy ustawić odpowiedni parametr H2_STORAGE_ENABLED w pliku application.properties:
 - H2_STORAGE_ENABLED=false - implementacja CarService
 - H2_STORAGE_ENABLED=true - implementacja CarServiceH2
 
-## Parametry zasobów
+## Parametry zasobów i walidacja
 
-Każdy zasób typu Car posiada sześć parametrów(oraz id generowane automatycznie):
+Każdy zasób typu Car posiada sześć parametrów(oraz id generowane automatycznie)<br />
+W nawiasach"[]" podano zasady walidacji:
 
-- maker
-- engineCapacity
-- numberOfSeats
-- firstRegistrationDate
-- registrationCardIssueDate
-- registrationNumber<br />
-Przy dodawaniu nowego samochodu wszystkie parametry prócz numberOfSeats są wymagane
+- <b>maker</b> [może przyjmować tylko wartości HONDA, FIAT, SKODA]
+- <b>engineCapacity</b> [liczby całkowite z przedziału 50 - 6999]
+- <b>numberOfSeats</b> [ cyfry z przedziału 1 - 6]
+- <b>firstRegistrationDate</b> [data w formacie yyyy-mm-dd, nie może być przed 1900-01-01 oraz po obecnym dniu]
+- <b>registrationCardIssueDate</b> [data w formacie yyyy-mm-dd, nie może być przed firstRegistrationDate oraz po obecnym dniu]
+- <b>registrationNumber</b> [pierwsze dwa znaki to niepowtarzające się litery + cyfry - łączna maksymalna długość to 10 znaków np. AB3456789]<br />
 
-Każdy zasób typu Customer posiada cztery parametry(oraz id generowane automatycznie):
-- firstName
-- lastName
-- idCardNumber
-- peselNumber
+Przy dodawaniu nowego samochodu wszystkie parametry prócz numberOfSeats są wymagane<br />
+
+<br/>
+Każdy zasób typu Customer posiada cztery parametry(oraz id generowane automatycznie)<br />
+W nawiasach"[]" podano zasady walidacji:
+
+- <b>firstName</b> [ilość znaków od 3 do 30]
+- <b>lastName</b> [ilość znaków od 3 do 30]
+- <b>idCardNumber</b> [trzy pierwsze znaki to litery + 6 cyfr np. ABC123456]
+- <b>peselNumber</b> [jedenaście cyfr np. 12345678901]<br />
+
+Przy dodawaniu nowego customera wszystkie parametry są wymagane<br />
 
 ## Dane zaimplementowane w kodzie programu
 
 W kodzie programu dodano cztery zasoby typu Car oraz cztery zasoby typu Customer<br />
 
-Car:
-- Maker.HONDA, 1589, 5, new Date(98, 1, 5), new Date(98, 2, 5), "AB1111"));
-- Maker.FIAT, 900, 4, new Date(99, 2, 5), new Date(100, 3, 11), "CD2222"));
-- Maker.SKODA, 2000, 6, new Date(93, 10, 20), new Date(94, 1, 5), "EF3333"));
-- Maker.HONDA, 2500, 2, new Date(98, 10, 5), new Date(98, 11, 1), "GH4444"));
+Car(maker, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber):
+- Maker.HONDA, 1589, 5, 1988-01-05, 1998-02-05, 2, 5), "AB1111"));
+- Maker.FIAT, 900, 4, 199-02-05, 2000-03-11, "CD2222"));
+- Maker.SKODA, 2000, 6, 1993-10-20, 1994-01-05, "EF3333"));
+- Maker.HONDA, 2500, 2, 1998-10-05, 1998-11-01, "GH4444"));
 
 
-Customer:
+Customer(firstName, lastName, idCardNumber, peselNumber):
 - "Jan", "Kowalski", "NHW399139", "43062460106"
 - "Adam", "Nowak", "KQL847332", "07240779183"
 - "Zygfryd", "Kopytko", "EIS182302", "79121576859"
@@ -69,64 +77,69 @@ Customer:
 
 ## Obsługa bazy samochodów (Car)
 
-Najłatwiejszym sposobem do obsługo zapytań jest użycie interfejsu Swaggera. Interfejs ten również generuje linki zapytań które można wklepić bezpośrednio do Postmana.
+Najłatwiejszym sposobem do obsługo zapytań jest użycie interfejsu Swaggera. Interfejs ten również generuje linki zapytań które można wkleić bezpośrednio do Postmana.<br />
 
-GET: <app_url>/car <br />
+<b>GET:</b> <app_url>/car <br />
 	zwraca wszystkie samochody w bazie danych
 	
-GET: <app_url>/car/{id} <br />
+<b>GET:</b> <app_url>/car/{id} <br />
 	zwraca samochód o podanym id
 	
-POST: <app_url>/car <br />
+<b>POST:</b> <app_url>/car <br />
 	tworzy nowy samochód w bazie danych <br />
 	wszystkie parametry prócz numberOfSeats są wymagane  (maker, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber) <br />
 	
-DELETE: <app_url>/car/{id} <br />
+<b>DELETE:</b> <app_url>/car/{id} <br />
 	usunięcie samochodu o podamym id
 	
-PUT: <app_url>/car/{id} <br />
+<b>PUT:</b> <app_url>/car/{id} <br />
 	aktualizacja danych samochodu o podanym id <br />
 	można podać dowolnie wybrane parametry do zmiany, pozostałe nie ulegną zmianie, id samochodu do zmiany jest wymagane (id, maker, engineCapacity, numberOfSeats, firstRegistrationDate, registrationCardIssueDate, registrationNumber) <br />
 			
 ## Obsługa bazy klientów (Customer)
 
-GET: <app_url>/customer <br />
+Najłatwiejszym sposobem do obsługo zapytań jest użycie interfejsu Swaggera. Interfejs ten również generuje linki zapytań które można wkleić bezpośrednio do Postmana.<br />
+
+<b>GET:</b> <app_url>/customer <br />
 	zwraca wszystkich klientów w bazie danych
 	
-GET: <app_url>/customer/{id} <br />
+<b>GET:</b> <app_url>/customer/{id} <br />
 	zwraca klienta o podanym id
 	
-POST: <app_url>/customer <br />
+<b>POST:</b> <app_url>/customer <br />
 	tworzy nowego klienta w bazie danych <br />
 	wymagane jest podanie wszystkich parametrów (firstName, lastName, idCardNumber, peselNumber) <br />
-	przykład: <br />
-	<app_url>/customer?firstName=Jan&lastName=Kowalski&idCardNumber=NHW399139&peselNumber=43062460106
-	
-DELETE: <app_url>/customer/{id} <br />
+
+<b>DELETE:</b> <app_url>/customer/{id} <br />
 	usunięcie klienta o podanym id
 	
-PUT: <app_url>/customer/{id} <br />
+<b>PUT:</b> <app_url>/customer/{id} <br />
 	aktualizacja danych klienta o podanym id <br />
 	można podać dowolnie wybrane parametry do zmiany, pozostałe nie ulegną zmianie (firstName, lastName, idCardNumber, peselNumber) <br />
-	przykład: <br />
-	<app_url>/customer/1?idCardNumber=NHW399139&peselNumber=43062460106 <br />
-		klientowi o id = 1 zmienione zostanie idCardNumber oraz peselNumber, pozostałe parametry pozostaną bez zmian
 		
 ## Obsługa bazy klientów (Customer) - Funkcje dodatkowe:
 	
-GET: <app_url>/customer/firstName={firstName} <br />
+<b>GET:</b> <app_url>/customer/firstName={firstName} <br />
 	zwraca wszystkich klientów o tym samym parametrze firstName
 	
-GET: <app_url>/customer/lastName={lastName} <br />
+<b>GET:</b> <app_url>/customer/lastName={lastName} <br />
 	zwraca wszystkich klientów o tym samym parametrze lastName
 
-GET: <app_url>/customer/idCardNumber={idCardNumber} <br />
+<b>GET:</b> <app_url>/customer/idCardNumber={idCardNumber} <br />
 	zwraca klienta o podanym idCardNumber
 
-GET: <app_url>/customer/peselNumber={peselNumber} <br />
+<b>GET:</b> <app_url>/customer/peselNumber={peselNumber} <br />
 	zwraca klienta o podanym peselNumber
-		
+
+## Format odpowiedzi z serwera
+
+Aplikacja umożliwia otrzymanie odpowiedzi w formacie <b>JSON</b> oraz <b>XML</b><br />
+
+Aby wybrać żądany przez nas format odpowiedzi używając Swagger2 wybieramy odpowiednią wartość z listy "Response Content Type" [application/json lub application/xml]<br />
+
+Aby wybrać format odpowiedzi xml używająć Postmana na końcu nagłówka zapytania musimy dodać .xml<br />
+Standardowa odpowiedź w Postmanie bez zdefiniowanego w nagłówku typu będzie zwracała dane w formie JSON
 		
 ## Autor
 
-Paweł Bachta
+<b>Paweł Bachta</b>

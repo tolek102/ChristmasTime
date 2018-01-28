@@ -1,0 +1,540 @@
+swagger: '2.0'
+info:
+  description: Patronage 2018 REST API – CRUD in Spring Boot
+  version: '3.0'
+  title: KomisApp by Paweł Bachta
+  contact:
+    name: Paweł Bachta
+    url: 'https://github.com/tolek102/ChristmasTime'
+    email: bachta.pawel@gmail.com
+host: 'localhost:8080'
+basePath: /
+tags:
+  - name: Customer API
+    description: Rest API for customer operations
+  - name: Car API
+    description: Rest API for car operations
+paths:
+  /car:
+    get:
+      tags:
+        - Car API
+      summary: Display all cars in database
+      operationId: getAllCarsUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/xml
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Car'
+        '404':
+          description: Requested resource not found
+        '500':
+          description: Internal server message
+    post:
+      tags:
+        - Car API
+      summary: Add new car to database
+      operationId: postNewCarUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: maker
+          in: query
+          description: Manufacturer of the car being added
+          required: true
+          type: string
+          enum:
+            - HONDA
+            - FIAT
+            - SKODA
+        - name: engineCapacity
+          in: query
+          description: 'Engine capacity of the car being added [50-6999]'
+          required: true
+          type: integer
+          format: int32
+        - name: numberOfSeats
+          in: query
+          description: 'Number of seats in the car being added [1-6]'
+          required: false
+          type: integer
+          format: int32
+        - name: firstRegistrationDate
+          in: query
+          description: 'First registration date of the car being added [yyyy-mm-dd]'
+          required: true
+          type: string
+          format: date
+        - name: registrationCardIssueDate
+          in: query
+          description: 'Registration card issue date for the car being added [yyyy-mm-dd]'
+          required: true
+          type: string
+          format: date
+        - name: registrationNumber
+          in: query
+          description: Registration number of the car being added
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Car'
+        '201':
+          description: Resource created successfully
+        '400':
+          description: Inputted data validation message
+        '404':
+          description: Requested resource not found
+        '500':
+          description: Internal server message
+  '/car/{id}':
+    get:
+      tags:
+        - Car API
+      summary: Display car with specified id
+      operationId: getCarByIdUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of car to display
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Car'
+        '404':
+          description: Requested resource not found
+        '500':
+          description: Internal server message
+    put:
+      tags:
+        - Car API
+      summary: Edit information of specified car
+      operationId: putNewCarDataUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of the car to edit
+          required: true
+          type: integer
+          format: int64
+        - name: maker
+          in: query
+          description: New car manufacturer for edited car
+          required: false
+          type: string
+          enum:
+            - HONDA
+            - FIAT
+            - SKODA
+        - name: engineCapacity
+          in: query
+          description: 'New engine capacity for edited car [50-6999]'
+          required: false
+          type: integer
+          format: int32
+        - name: numberOfSeats
+          in: query
+          description: 'New number of seats for edited car [1-6]'
+          required: false
+          type: integer
+          format: int32
+        - name: firstRegistrationDate
+          in: query
+          description: 'New first registration date for edited car [yyyy-mm-dd]'
+          required: false
+          type: string
+          format: date
+        - name: registrationCardIssueDate
+          in: query
+          description: 'New registration card issue date for edited car [yyyy-mm-dd]'
+          required: false
+          type: string
+          format: date
+        - name: registrationNumber
+          in: query
+          description: New registration number for edited car
+          required: false
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Car'
+        '400':
+          description: Inputted data validation message
+        '404':
+          description: Requested resource not found
+        '500':
+          description: Internal server message
+    delete:
+      tags:
+        - Car API
+      summary: Delete car with specified id from database
+      operationId: deleteCarUsingDELETE
+      consumes:
+        - application/json
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of the car to delete
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Car'
+        '404':
+          description: Requested resource not found
+        '500':
+          description: Internal server message
+  /customer:
+    get:
+      tags:
+        - Customer API
+      summary: Display all customers in database
+      operationId: getAllCustomersUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/xml
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Customer'
+        '404':
+          description: Requested resource not found
+        '500':
+          description: Internal server message
+    post:
+      tags:
+        - Customer API
+      summary: Add new customer to database
+      operationId: postNewCustomerUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: firstName
+          in: query
+          description: First name of the customer being added
+          required: true
+          type: string
+        - name: lastName
+          in: query
+          description: Last name of the customer being added
+          required: true
+          type: string
+        - name: idCardNumber
+          in: query
+          description: ID card number of the customer being added
+          required: true
+          type: string
+        - name: peselNumber
+          in: query
+          description: PESEL of the customer being added
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Customer'
+        '201':
+          description: Resource created successfully
+        '400':
+          description: Inputted data validation message
+        '404':
+          description: Requested resource not found
+        '500':
+          description: Internal server message
+  '/customer/firstName={firstName}':
+    get:
+      tags:
+        - Customer API
+      summary: Search for all customers witch specified first name
+      operationId: getByFirstNameUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: firstName
+          in: path
+          description: First name for searching in database
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Customer'
+        '404':
+          description: Requested resource not found
+        '500':
+          description: Internal server message
+  '/customer/idCardNumber={idCardNumber}':
+    get:
+      tags:
+        - Customer API
+      summary: Search for customer witch specified id card number
+      operationId: getCustomerByIdCardNumberUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: idCardNumber
+          in: path
+          description: ID card number for searching in database
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Customer'
+        '404':
+          description: Requested resource not found
+        '500':
+          description: Internal server message
+  '/customer/lastName={lastName}':
+    get:
+      tags:
+        - Customer API
+      summary: Search for all customers witch specified last name
+      operationId: getCustomerByLastNameUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: lastName
+          in: path
+          description: Last name for searching in database
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Customer'
+        '404':
+          description: Requested resource not found
+        '500':
+          description: Internal server message
+  '/customer/peselNumber={peselNumber}':
+    get:
+      tags:
+        - Customer API
+      summary: Search for customer witch specified PESEL number
+      operationId: getCustomerByIdPeselNumberUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: peselNumber
+          in: path
+          description: PESEL number for searching in database
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Customer'
+        '404':
+          description: Requested resource not found
+        '500':
+          description: Internal server message
+  '/customer/{id}':
+    get:
+      tags:
+        - Customer API
+      summary: Display customer with specified id
+      operationId: getCustomerByIdUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of customer to display
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Customer'
+        '404':
+          description: Requested resource not found
+        '500':
+          description: Internal server message
+    put:
+      tags:
+        - Customer API
+      summary: Edit information of specified customer
+      operationId: putNewCustomerDataUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of the customer to edit
+          required: true
+          type: integer
+          format: int64
+        - name: firstName
+          in: query
+          description: First name for edited customer
+          required: false
+          type: string
+        - name: lastName
+          in: query
+          description: Last name for edited customer
+          required: false
+          type: string
+        - name: idCardNumber
+          in: query
+          description: ID card number for edited customer
+          required: false
+          type: string
+        - name: peselNumber
+          in: query
+          description: PESEL number for edited customer
+          required: false
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Customer'
+        '400':
+          description: Inputted data validation message
+        '404':
+          description: Requested resource not found
+        '500':
+          description: Internal server message
+    delete:
+      tags:
+        - Customer API
+      summary: Delete customer with specified id from database
+      operationId: deleteCustomerUsingDELETE
+      consumes:
+        - application/json
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of the customer to delete
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Customer'
+        '404':
+          description: Requested resource not found
+        '500':
+          description: Internal server message
+definitions:
+  Car:
+    type: object
+    properties:
+      engineCapacity:
+        type: integer
+        format: int32
+        description: Capacity of the engine
+      firstRegistrationDate:
+        type: string
+        format: date
+        description: Date of first registration
+      id:
+        type: integer
+        format: int64
+        description: Identification number
+      maker:
+        type: string
+        description: Car Manufacturer
+        enum:
+          - HONDA
+          - FIAT
+          - SKODA
+      numberOfSeats:
+        type: integer
+        format: int32
+        description: Number of seats
+      registrationCardIssueDate:
+        type: string
+        format: date
+        description: Date of issuing registartion card
+      registrationNumber:
+        type: string
+        description: Car registration number
+  Customer:
+    type: object
+    properties:
+      firstName:
+        type: string
+        description: Customer first name
+      id:
+        type: integer
+        format: int64
+        description: Identification number
+      idCardNumber:
+        type: string
+        description: ID card number of customer
+      lastName:
+        type: string
+        description: Customer last name
+      peselNumber:
+        type: string
+        description: PESEL number of customer
